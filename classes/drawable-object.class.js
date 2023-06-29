@@ -30,39 +30,18 @@ class DrawableObject {
 
 
     drawFrameBorder(ctx) {
-        if (this instanceof Character) { //basic character grenzen vom bild aus
+        if (this instanceof EnemyChicken || this instanceof Endboss) { //basic  grenzen vom bild aus
             ctx.beginPath(); //begin bis stroke() macht die blauen kästen um die images
-            ctx.lineWidth = '1';
+            ctx.lineWidth = '2';
             ctx.strokeStyle = 'blue';
             ctx.rect(this.posX, this.posY, this.width, this.height);
             ctx.stroke();
         }
-        // if (this instanceof Character) {
-        //     ctx.beginPath(); //begin bis stroke() macht die blauen kästen um die images
-        //     ctx.lineWidth = '3';
-        //     ctx.strokeStyle = 'red';
-        //     ctx.rect(this.posX + 50, this.posY + 100, this.width - 100, this.height - 100);
-        //     ctx.stroke();
-        // }
         if (this instanceof Character) { //richtige charakter grenzen die auch in der function isColliding() benutzt werden
             ctx.beginPath(); //begin bis stroke() macht die blauen kästen um die images
             ctx.lineWidth = '3';
             ctx.strokeStyle = 'red';
             ctx.rect(this.posX + 47, this.posY + 100, this.width - 90, this.height - 112);
-            ctx.stroke();
-        }
-        if (this instanceof EnemyChicken) {
-            ctx.beginPath(); //begin bis stroke() macht die blauen kästen um die images
-            ctx.lineWidth = '3';
-            ctx.strokeStyle = 'blue';
-            ctx.rect(this.posX, this.posY, this.width, this.height);
-            ctx.stroke();
-        }
-        if (this instanceof Endboss) {
-            ctx.beginPath(); //begin bis stroke() macht die blauen kästen um die images
-            ctx.lineWidth = '3';
-            ctx.strokeStyle = 'blue';
-            ctx.rect(this.posX, this.posY, this.width, this.height);
             ctx.stroke();
         }
     }
