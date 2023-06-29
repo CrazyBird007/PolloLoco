@@ -6,6 +6,7 @@ function initLevel1() {
             new EnemyChicken(),
             new EnemyChicken(),
             new EnemyChicken(),
+            new SmallEnemyChicken(),
             new Endboss(),
         ],
         [
