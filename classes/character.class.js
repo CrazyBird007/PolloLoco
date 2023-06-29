@@ -61,7 +61,6 @@ class Character extends MovableObject {
         'img/2_character_pepe/1_idle/long_idle/I-20.png',
     ];
     world; // hier werden alle variablen aus der world class gespeichert //  durch die setWorld() func. aus der world class
-    isCharacterDead = false;
 
     constructor() {
         super().loadImage('./img/2_character_pepe/2_walk/W-21.png');
@@ -94,12 +93,13 @@ class Character extends MovableObject {
             this.world.camera_x = -this.posX + 150; // wenn x vom char. verändert wird, wird die camera_x variable verändert, so bewegt sich das bild
         }, 1000 / 60);   // durch das + wird der charakter im bild verschoben, so könnte er mittig sein oder leicht links
         setInterval(() => {
-            if (this.isDead() && !this.isCharacterDead) {
+            if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
-                this.isCharacterDead = true;
                 setTimeout(() => {
                     document.getElementById('looseGame').classList.remove('d-none');
-                }, 2000);
+                    for (let i = 1; i < 9999; i++) window.clearInterval(i); //stoppt alle intervalle 
+                    document.getElementById('startButton').classList.remove('d-none');
+                }, 1220);
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
             } else if (this.isAboveGround()) {

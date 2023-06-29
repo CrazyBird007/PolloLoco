@@ -13,7 +13,7 @@ class EnemyChicken extends MovableObject {
     constructor() {
         super().loadImage('./img/3_enemies_chicken/chicken_normal/1_walk/1_w.png');
 
-        this.posX = 300 + Math.random() * 1000;
+        this.posX = 300 + Math.random() * 10000; //lässt die gegner random auf der x achse spawnen
         this.loadImages(this.IMAGES_WALKING);
         this.animate();
         this.speed = 0.15 + Math.random() * 0.12;

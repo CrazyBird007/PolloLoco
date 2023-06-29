@@ -26,8 +26,6 @@ h1 {
 }
 
 #startButton {
-    top: calc(50% + 49px);
-    position: absolute;
     font-family: 'zabras', Arial, Helvetica, sans-serif;
     width: 100px;
     height: 50px;
@@ -37,6 +35,11 @@ h1 {
     font-size: 30px;
     border: none;
     box-shadow: 0px 0px 10px #efb91fb3;
+    position: absolute;
+    top: 10%;
+    bottom: 0;
+    right: 0;
+    left: 44%;
 }
 
 #startButton:hover {
@@ -46,9 +49,17 @@ h1 {
 
 #looseGame {
     background-image: url('./img/9_intro_outro_screens/game_over/game over.png');
-    width: 100%;
-    height: 100vh;
+    background-position: center;
+    background-size: cover;
     position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+
+#fullscreen {
+    position: relative;
 }
 
 .fullscreen {

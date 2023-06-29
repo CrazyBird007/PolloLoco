@@ -6,6 +6,23 @@ function initLevel1() {
             new EnemyChicken(),
             new EnemyChicken(),
             new EnemyChicken(),
+            new EnemyChicken(),
+            new EnemyChicken(),
+            new EnemyChicken(),
+            new EnemyChicken(),
+            new EnemyChicken(),
+            new EnemyChicken(),
+            new EnemyChicken(),
+            new EnemyChicken(),
+            new EnemyChicken(),
+            new EnemyChicken(),
+            new EnemyChicken(),
+            new EnemyChicken(),
+            new SmallEnemyChicken(),
+            new SmallEnemyChicken(),
+            new SmallEnemyChicken(),
+            new SmallEnemyChicken(),
+            new SmallEnemyChicken(),
             new SmallEnemyChicken(),
             new Endboss(),
         ],
@@ -39,5 +56,6 @@ function initLevel1() {
             new BackgroundObject('./img/5_background/layers/1_first_layer/2.png', 719 * 3, 0),
         ],
     );
+    document.getElementById('looseGame').classList.add('d-none');
     document.getElementById('startButton').classList.add('d-none');
 }

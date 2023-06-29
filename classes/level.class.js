@@ -2,7 +2,7 @@ class Level {
     enemies;
     clouds;
     backgroundObjects;
-    level_end_x = 2301;
+    level_end_x = 2165;
 
 
     constructor(enemies, clouds, backgroundObjects) { //aus dem levels ordner wird hier z.b. level1.js 3 funktionsparameter 

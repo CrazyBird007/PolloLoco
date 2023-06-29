@@ -32,15 +32,18 @@
     <!-- <h2>x 720px</h2> -->
     <div class="flex-direction-row">
         <div id="fullscreen">
+            
             <canvas id="canvas" width="853px" height="480px">
             </canvas>
+            <div id="looseGame" class="d-none">
+            </div>
+            <button id="startButton" onclick="initLevel1(), init()">START</button>
         </div>
         <!-- <h2>y 480px</h2> -->
         <button class="fullscreen" onclick="fullscreen()">Fullscreen</button>
+        
     </div>
-    <button id="startButton" onclick="initLevel1(), init()">START</button>
-    <div id="looseGame" class="d-none">
-    </div>
+  
    
 
 </body>

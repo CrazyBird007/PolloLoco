@@ -12,7 +12,7 @@ class SmallEnemyChicken extends EnemyChicken {
     constructor() {
         super().loadImage('./img/3_enemies_chicken/chicken_small/1_walk/1_w.png');
 
-        this.posX = 300 + Math.random() * 1000;
+        this.posX = 300 + Math.random() * 3500;
         this.loadImages(this.IMAGES_WALKING);
         this.animate();
         this.speed = 0.1 + Math.random() * 0.1;
