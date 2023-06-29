@@ -54,3 +54,41 @@ document.onkeyup = function (e) {
     //     keyboard.SPACE = false;
     // }
 };
+
+
+// starts fullscreen with button and leave fullscreen with press Escape
+function fullscreen() {
+    let canvasFullscreen = document.getElementById('canvas');
+    let fullscreen = document.getElementById('fullscreen');
+    enterFullscreen(fullscreen);
+    canvasFullscreen.style.width = '100vw';
+    canvasFullscreen.style.height = '100vh';
+}
+
+
+function enterFullscreen(element) {
+    if (element.requestFullscreen) {
+        element.requestFullscreen();
+    } else if (element.msRequestFullscreen) {      // for IE11 (remove June 15, 2022)
+        element.msRequestFullscreen();
+    } else if (element.webkitRequestFullscreen) {  // iOS Safari
+        element.webkitRequestFullscreen();
+    }
+}
+
+
+document.addEventListener('fullscreenchange', handleFullscreenChange);
+document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+document.addEventListener('mozfullscreenchange', handleFullscreenChange);
+document.addEventListener('MSFullscreenChange', handleFullscreenChange);
+
+
+function handleFullscreenChange() {
+    let canvasFullscreen = document.getElementById('canvas');
+    let originalCanvasWidth = 853;
+    let originalCanvasHeight = 480;
+    if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.mozFullScreenElement && !document.msFullscreenElement) {
+        canvasFullscreen.style.width = originalCanvasWidth + 'px';
+        canvasFullscreen.style.height = originalCanvasHeight + 'px';
+    }
+}

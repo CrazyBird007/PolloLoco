@@ -7,7 +7,7 @@
     <title>Modul11Albert</title>
 
     <link rel="stylesheet" href="./style.css">
-    
+
     <script src="./classes/drawable-object.class.js"></script>
     <script src="./classes/movable-object.class.js"></script>
     <script src="./classes/character.class.js"></script>
@@ -30,11 +30,14 @@
     <h1>El Pollo Loco</h1>
     <h2>x 720px</h2>
     <div class="flex-direction-row">
-        <canvas id="canvas" width="720px" height="480px">
-        </canvas>
+        <div id="fullscreen">
+            <canvas id="canvas" width="853px" height="480px">
+            </canvas>
+        </div>
         <h2>y 480px</h2>
     </div>
     <button id="startButton" onclick="initLevel1(), init()">START</button>
+    <button onclick="fullscreen()">Fullscreen</button>
 
 </body>
 

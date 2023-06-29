@@ -10,6 +10,7 @@ body {
     background-position: center;
     background-size: cover;
     font-family: 'zabras', Arial, Helvetica, sans-serif;
+    height: 100%;
 }
 
 canvas {
