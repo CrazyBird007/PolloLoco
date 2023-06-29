@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" translate="no">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modul11Albert</title>
+
+    <link rel="stylesheet" href="./style.css">
+    
+    <script src="./classes/drawable-object.class.js"></script>
+    <script src="./classes/movable-object.class.js"></script>
+    <script src="./classes/character.class.js"></script>
+    <script src="./classes/enemy-chicken.class.js"></script>
+    <script src="./classes/endboss.class.js"></script>
+    <script src="./classes/cloud.class.js"></script>
+    <script src="./classes/background-static.class.js"></script>
+    <script src="./classes/keyboard.class.js"></script>
+    <script src="./classes/level.class.js"></script>
+    <script src="./levels/level1.js"></script>
+    <script src="./classes/status-bar.class.js"></script>
+    <script src="./classes/throwable-object.class.js"></script>
+    <script src="./classes/world.class.js"></script>
+    <script src="./js/game.js"></script>
+
+</head>
+
+<body>
+
+    <h1>El Pollo Loco</h1>
+    <h2>x 720px</h2>
+    <div class="flex-direction-row">
+        <canvas id="canvas" width="720px" height="480px">
+        </canvas>
+        <h2>y 480px</h2>
+    </div>
+    <button id="startButton" onclick="initLevel1(), init()">START</button>
+
+</body>
+
+</html>

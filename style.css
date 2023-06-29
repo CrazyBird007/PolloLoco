@@ -1,0 +1,42 @@
+html {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-image: url('./img/background.png');
+    background-position: center;
+    background-size: cover;
+    font-family: 'zabras', Arial, Helvetica, sans-serif;
+}
+
+canvas {
+    background-color: black;
+}
+
+h1 {
+    font-size: 60px;
+    letter-spacing: 4px;
+    text-shadow: 2px 2px 2px rgba(94, 84, 84, 0.499);
+}
+
+.d-none {
+    display: none;
+}
+
+.flex-direction-row {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+}
+
+.flex-direction-row h2 {
+    margin-right: 20px;
+}
+
+@font-face {
+    font-family: 'zabras';
+    src: url('./fonts/zabars.ttf') format('truetype'); /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
+} 
