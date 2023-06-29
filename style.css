@@ -3,6 +3,7 @@ html {
 }
 
 body {
+    margin: 0;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -23,14 +24,36 @@ h1 {
     text-shadow: 2px 2px 2px rgba(94, 84, 84, 0.499);
 }
 
+#startButton {
+    top: calc(50% + 49px);
+    position: absolute;
+    font-family: 'zabras', Arial, Helvetica, sans-serif;
+    width: 100px;
+    height: 50px;
+    border-radius: 10px;
+    background-color: rgba(237, 84, 18, 0.812);
+    cursor: pointer;
+    font-size: 30px;
+    border: none;
+    box-shadow: 0px 0px 10px #efb91fb3;
+}
+
+#startButton:hover {
+    transform: scale(1.3);
+    box-shadow: 0px 0px 75px #efb81f;
+}
+
 .d-none {
     display: none;
+    position: relative;
 }
 
 .flex-direction-row {
     display: flex;
-    flex-direction: row-reverse;
+    flex-direction: column;
     align-items: center;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
 .flex-direction-row h2 {
