@@ -43,7 +43,7 @@ class World {
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
-                // console.log('Character collision with:', enemy); //zeigt an wo man mit welchem gegner collidiert!
+                console.log('Character collision with:', enemy); //zeigt an wo man mit welchem gegner collidiert!
                 this.character.hit();
                 this.statusBar.setPercentage(this.character.energy);
                 console.log('after collision energy from character:', this.character.energy);

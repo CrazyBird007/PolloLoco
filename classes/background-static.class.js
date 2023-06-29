@@ -1,8 +1,8 @@
 class BackgroundObject extends MovableObject {
     // width = 720;    // so hatte ich es vor video 13 / 14 
     // height = 480;
-    // posX = 0;
-    // posY = 0;
+    posX = 0;
+    posY = 0;
 
 
     // constructor(imagePath) {

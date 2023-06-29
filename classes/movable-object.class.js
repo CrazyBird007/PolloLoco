@@ -4,15 +4,16 @@ class MovableObject extends DrawableObject {
     speedY = 0;
     acceleration = 3;
     offsetY = 0; //man könnte dem character beim springen offsetY geben
-    energy = 100;
+    energy = 1000;
     lastHit = 0;
 
 
-//neuer id colliding code
+//neuer isColliding code ; diese positionen sind für die characterabgrenzung wichtig und können ggf. geändert werden, 
+//schau dazu in der drawframeborder function nach:       // this.posX + 47, this.posY + 100, this.width - 90, this.height - 112
     isColliding(obj) { //hier gibt es noch eine offsetY, wieso?! für die höhe? gibts nun global und beim character jump ändert sie sich da
-        return (this.posX + this.width) >= obj.posX && this.posX <= (obj.posX + obj.width) &&
-            (this.posY + this.offsetY + this.height) >= obj.posY &&
-            (this.posY + this.offsetY) <= (obj.posY + obj.height) ;
+        return (this.posX + 47 + this.width - 90) >= obj.posX && this.posX <= (obj.posX + obj.width) &&
+            (this.posY + 100 + this.offsetY + this.height-112) >= obj.posY &&
+            (this.posY + 100 + this.offsetY) <= (obj.posY + obj.height) ;
             // &&  //das && obj.onCollisionCourse; erstmal rauslassen
             // obj.onCollisionCourse; // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt.
     }                              // Nur dann kollidieren wir. Nützlich bei Gegenständen, auf denen man stehen kann.

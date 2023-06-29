@@ -16,7 +16,7 @@ class EnemyChicken extends MovableObject {
         this.posX = 300 + Math.random() * 1000;
         this.loadImages(this.IMAGES_WALKING);
         this.animate();
-        this.speed = 0.25 + Math.random() * 0.2;
+        this.speed = 0.15 + Math.random() * 0.12;
     }
 
     animate() {
