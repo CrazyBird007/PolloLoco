@@ -44,6 +44,13 @@ h1 {
     box-shadow: 0px 0px 75px #efb81f;
 }
 
+#looseGame {
+    background-image: url('./img/9_intro_outro_screens/game_over/game over.png');
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+}
+
 .fullscreen {
     font-family: 'zabras', Arial, Helvetica, sans-serif;
     width: 100px;
@@ -64,6 +71,10 @@ h1 {
 .d-none {
     display: none;
     position: relative;
+}
+
+.d-flex {
+    display: flex;
 }
 
 .flex-direction-row {
