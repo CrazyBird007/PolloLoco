@@ -78,6 +78,7 @@ class Character extends MovableObject {
 
 
     animate() {
+        let i = 0;
         setInterval(() => {
             if (this.world.keyboard.RIGHT && this.posX < this.world.level.level_end_x) { // char kann nicht weiter als level_endX nach rechts gehen
                 this.moveRight();
@@ -94,9 +95,13 @@ class Character extends MovableObject {
             this.world.camera_x = -this.posX + 150; // wenn x vom char. verändert wird, wird die camera_x variable verändert, so bewegt sich das bild
         }, 1000 / 60);   // durch das + wird der charakter im bild verschoben, so könnte er mittig sein oder leicht links
         setInterval(() => {
-            if (this.isDead()) {
+            if (this.isDead() && i < 10) {
                 this.playAnimation(this.IMAGES_DEAD);
-            } else if (this.isHurt()) {
+                i++
+            } else {
+                console.log('character tot');
+                this.loadImage('./img/9_intro_outro_screens/game_over/game over.png');
+            } if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
             } else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);
@@ -108,15 +113,15 @@ class Character extends MovableObject {
                 const currentTime = new Date();
                 const idleTime = currentTime - this.lastActiveTime;
                 const startLongIdle = 3000; //long idle after 10 sec.
-            
                 if (idleTime >= startLongIdle) {
                     this.playAnimation(this.IMAGES_LONG_IDLE);
                 } else {
                     this.playAnimation(this.IMAGES_IDLE);
                 }
             }
-        }, 150);
+        }, 102);
     }
+
 
     jump() {
         this.speedY = 30;

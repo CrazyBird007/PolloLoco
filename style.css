@@ -7,7 +7,7 @@ body {
     display: flex;
     align-items: center;
     flex-direction: column;
-    background-image: url('./img/background.png');
+    background-image: url('./img/background4.jpg');
     background-position: center;
     background-size: cover;
     font-family: 'zabras', Arial, Helvetica, sans-serif;
@@ -16,6 +16,7 @@ body {
 
 canvas {
     background-color: black;
+    border-radius: 10px;
 }
 
 h1 {
