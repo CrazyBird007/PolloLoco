@@ -6,7 +6,7 @@ let keyboard = new Keyboard();
 function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard); // der parameter canvas wird an den constructor der world class weitergegeben
-
+    buttonTouchEvents();
     console.log('My world is:', world.character, world.enemies, world.backgroundObjects, world.clouds);
 }
 
@@ -28,9 +28,6 @@ document.onkeydown = function (e) {
     else if (e.key === "Enter" || e.key === "f") {
         keyboard.F = true;
     }
-    // else if (e.key === " ") {
-    //     keyboard.SPACE = true;
-    // }
 };
 
 
@@ -50,10 +47,53 @@ document.onkeyup = function (e) {
     else if (e.key === "Enter" || e.key === "f") {
         keyboard.F = false;
     }
-    // else if (e.key === " ") {
-    //     keyboard.SPACE = false;
-    // }
 };
+
+
+function buttonTouchEvents() {
+    document.getElementById('leftButton').addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        keyboard.LEFT = true;
+    });
+
+    document.getElementById('leftButton').addEventListener('touchend', (e) => {
+        e.preventDefault();
+        keyboard.LEFT = false;
+    });
+
+    document.getElementById('rightButton').addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        keyboard.RIGHT = true;
+    });
+
+    document.getElementById('rightButton').addEventListener('touchend', (e) => {
+        e.preventDefault();
+        keyboard.RIGHT = false;
+    });
+
+    document.getElementById('jumpButton').addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        keyboard.UP = true;
+    });
+
+    document.getElementById('jumpButton').addEventListener('touchend', (e) => {
+        e.preventDefault();
+        keyboard.UP = false;
+    });
+
+    document.getElementById('throwButton').addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        keyboard.F = true;
+    });
+
+    document.getElementById('throwButton').addEventListener('touchend', (e) => {
+        e.preventDefault();
+        keyboard.F = false;
+    });
+}
+
+
+
 
 
 // starts fullscreen with button and leave fullscreen with press Escape
