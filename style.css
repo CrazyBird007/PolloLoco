@@ -17,6 +17,7 @@ body {
 canvas {
     background-color: black;
     border-radius: 10px;
+    display: block;
 }
 
 h1 {
@@ -104,3 +105,16 @@ h1 {
     font-family: 'zabras';
     src: url('./fonts/zabars.ttf') format('truetype'); /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
 } 
+
+/* smarthphose adjustments */
+@media only screen and (max-width: 853px) {
+    canvas {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-height: 480px) {
+    canvas {
+        height: 100vh;
+    }
+}
