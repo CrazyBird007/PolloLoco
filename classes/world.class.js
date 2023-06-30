@@ -51,29 +51,45 @@ class World {
                 console.log('after collision energy from character:', this.character.energy);
             }
         });
-        this.level.clouds.forEach((coin) => {
-            if (this.character.isColliding(coin)) {
-              console.log('Character collision with coin:', coin);
-              this.removeCoin(coin);
+        this.level.clouds.forEach((cloud) => {
+            if (this.character.isColliding(cloud)) {
+                if (cloud instanceof Coin) {
+                    console.log('Character collided with coin:', cloud);
+                    this.removeCoin(cloud);
+                    // Weitere Aktionen für das Aufnehmen der Münze ausführen
+                } else if (cloud instanceof Bottle) {
+                    console.log('Character collided with bottle:', cloud);
+                    this.removeBottle(cloud);
+                    // Weitere Aktionen für das Aufnehmen der Flasche ausführen
+                }
             }
-          });
+        });
     }
 
     removeCoin(coin) {
         // Entferne das Coin-Objekt aus dem Spiel
-        var coinIndex = this.level.clouds.indexOf(coin);
+        let coinIndex = this.level.clouds.indexOf(coin);
         if (coinIndex !== -1) {
             this.level.clouds.splice(coinIndex, 1);
         }
         // Weitere Aufräumarbeiten oder Aktionen...
-      }
+    }
+
+    removeBottle(bottle) {
+        // Entferne das Bottle-Objekt aus dem Spiel
+        let bottleIndex = this.level.clouds.indexOf(bottle);
+        if (bottleIndex !== -1) {
+            this.level.clouds.splice(bottleIndex, 1);
+        }
+        // Weitere Aufräumarbeiten oder Aktionen...
+    }
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); //nun kann man auf die lokale canvas var. zugreifen
 
         this.ctx.translate(this.camera_x, 0); // verschiebt die kamera x nach links , y wird um 0 verschoben
 
-        this.addObjectsToMap(this.level.backgroundObjects);  
+        this.addObjectsToMap(this.level.backgroundObjects);
         this.addObjectsToMap(this.level.clouds);
 
 
@@ -87,7 +103,7 @@ class World {
         this.ctx.translate(this.camera_x, 0); // verschiebt die kamera wieder damit sich alle bilder bewegen wie oben bei dem selben code
 
 
-        
+
         this.addToMap(this.character);   //neu, so muss man nur 1 variable weitergeben rest geht automatisch
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.throwableObjects);
@@ -135,7 +151,7 @@ class World {
         object.posX = object.posX * -1; // ändert /spiegelt die position des objects auf der x achse sodass es an 
         //der selben stelle gespiegelt erscheint
     }
-    
+
 
     restoreAndMirrorImageBack(object) {
         object.posX = object.posX * -1; // ändert/spiegelt die spiegelung zurück
