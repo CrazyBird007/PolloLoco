@@ -112,7 +112,7 @@ class Character extends MovableObject {
             } else {
                 const currentTime = new Date();
                 const idleTime = currentTime - this.lastActiveTime;
-                const startLongIdle = 3000; //long idle after 10 sec.
+                const startLongIdle = 6000; //long idle after 6 sec.
                 if (idleTime >= startLongIdle) {
                     this.playAnimation(this.IMAGES_LONG_IDLE);
                 } else {

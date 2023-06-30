@@ -9,6 +9,7 @@ class World {
     statusBarBottle = new StatusBarBottle();
     statusBarCoin = new StatusBarCoin();
     throwableObjects = [];
+    collectedBottles = 0;
 
 
     constructor(canvas, keyboard) {
@@ -23,6 +24,7 @@ class World {
 
     setWorld() {
         this.character.world = this; // hier wird mit = this alles aus der world übergeben damit man auf alles zugreifen kann im char.
+        this.character.world = this; // hier wird mit = this alles aus der world übergeben damit man auf alles zugreifen kann im char.
     } // man greift auf character auf die variable world dort zu und setzt die variablen von hier da rein
 
 
@@ -35,9 +37,12 @@ class World {
 
 
     checkThrowObjects() {
-        if (this.keyboard.F) {
+        if (this.keyboard.F && this.collectedBottles > 0) {
             let bottle = new ThrowableObject(this.character.posX + 75, this.character.posY + 130);
             this.throwableObjects.push(bottle);
+            this.collectedBottles--; //zieht wieder eine bottle ab wenn man wirft
+            this.statusBarBottle.updateBottleStatusBarWhenThrow(); //zieht bottles von der statusbar ab
+            console.log('current bottles:', this.collectedBottles);
         }
     }
 
@@ -64,8 +69,8 @@ class World {
                     console.log('Character collided with bottle:', cloud);
                     this.removeBottle(cloud);
                     this.statusBarBottle.updateBottleStatusBar();
-                    this.statusBarBottle.countSessionBottle++;
-                    console.log('session bottles:', this.statusBarBottle.countSessionBottle);
+                    this.collectedBottles++;
+                    console.log('current bottles:', this.collectedBottles);
                     // Weitere Aktionen für das Aufnehmen der Flasche ausführen
                 }
             }
