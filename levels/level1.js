@@ -35,6 +35,16 @@ function initLevel1() {
             new Coin(150, 150),
             new Coin(130, 120),
             new Coin(110, 90),
+            new Coin(null, null, true),
+            new Coin(null, null, true),
+            new Coin(null, null, true),
+            new Coin(null, null, true),
+            new Coin(null, null, true),
+            new Coin(null, null, true),
+            new Coin(null, null, true),
+            new Coin(null, null, true),
+            new Coin(null, null, true),
+            new Coin(null, null, true),
         ],
         [
             new BackgroundObject('./img/5_background/layers/air.png', -719, 0), // level nach hinten verlängern
