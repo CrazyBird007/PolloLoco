@@ -117,4 +117,10 @@ h1 {
     canvas {
         height: 100vh;
     }
+    #headline {
+        display: none;
+    }
+    #fullscreenButton {
+        display: none;
+    }
 }
