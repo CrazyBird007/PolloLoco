@@ -24,7 +24,9 @@ function initLevel1() {
             new SmallEnemyChicken(),
             new SmallEnemyChicken(),
             new SmallEnemyChicken(),
-            new Endboss(),
+            new Endboss(2270, 70), //richtiger endboss
+            // new Endboss(400, 70), // test endboss für dmg tests
+            // new Endboss(null, 70, true), // so könnte man einen endboss random spawnen lassen
         ],
         [
             new Cloud(),
