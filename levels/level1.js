@@ -32,9 +32,9 @@ function initLevel1() {
             new Cloud(),
             new Cloud(),
             new Cloud(),
-            new Coin(),
-            new Coin(),
-            new Coin(),
+            new Coin(150, 150),
+            new Coin(130, 120),
+            new Coin(110, 90),
         ],
         [
             new BackgroundObject('./img/5_background/layers/air.png', -719, 0), // level nach hinten verlängern

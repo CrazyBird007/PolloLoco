@@ -8,11 +8,19 @@ class Coin extends MovableObject {
     ];
 
 
-    constructor() {
+    constructor(posX, posY) {
         super().loadImage('./img/8_coin/coin_1.png');
-
-        this.posX = 300 + Math.random() * 1000; //lässt die gegner random auf der x achse spawnen
+        this.posX = posX;
+        this.posY = posY;
+        // this.posX = 300 + Math.random() * 1000; //lässt die coins random auf der xachse spawnen
         this.loadImages(this.IMAGES_COIN);
-        // this.animate();
+        this.animate();
+    }
+
+    
+    animate() {
+        setInterval(() => {
+            this.playAnimation(this.IMAGES_COIN); 
+        }, 600);
     }
 }
