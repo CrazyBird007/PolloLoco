@@ -32,9 +32,9 @@ function initLevel1() {
             new Cloud(),
             new Cloud(),
             new Cloud(),
-            new Coin(150, 150),
-            new Coin(130, 120),
-            new Coin(110, 90),
+            new Coin(-450, 150),//erst x dann y position
+            new Coin(-430, 120),
+            new Coin(-410, 90),
             new Coin(null, null, true),
             new Coin(null, null, true),
             new Coin(null, null, true),
@@ -45,6 +45,13 @@ function initLevel1() {
             new Coin(null, null, true),
             new Coin(null, null, true),
             new Coin(null, null, true),
+            new Bottle(-520, 320), //erst x dann y position
+            new Bottle(null, null, true),
+            new Bottle(null, null, true),
+            new Bottle(null, null, true),
+            new Bottle(null, null, true),
+            new Bottle(null, null, true),
+
         ],
         [
             new BackgroundObject('./img/5_background/layers/air.png', -719, 0), // level nach hinten verlängern

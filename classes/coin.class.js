@@ -8,26 +8,17 @@ class Coin extends MovableObject {
     ];
 
 
-    // constructor(posX, posY, randomSpawn = false) {
-    //     super().loadImage('./img/8_coin/coin_1.png');
-    //     this.posX = posX;
-    //     this.posY = posY;
-    //     // this.posX = 300 + Math.random() * 1000; //lässt die coins random auf der xachse spawnen
-    //     this.loadImages(this.IMAGES_COIN);
-    //     this.animate();
-    // }
-
-    constructor(posX, posY, randomSpawn = false) {
+    constructor(posX, posY, randomSpawn = false) { //kann feste oder zufällige positionen der x/y achse weitergeben aus level1.js
         super().loadImage('./img/8_coin/coin_1.png');
         this.loadImages(this.IMAGES_COIN);
         this.animate();
 
-        if (randomSpawn) {
-            this.posX = -600 + Math.random() * 2900; // Zufällige Position auf der X-Achse
-            this.posY = 70 + Math.random() * 330; // Zufällige Position auf der Y-Achse
+        if (randomSpawn) { //wenn random spawn dann wird hier x /y ausgerechnet, wenn es koordinaten gibt dann werden diese genutzt
+            this.posX = -500 + Math.random() * 2750; 
+            this.posY = 70 + Math.random() * 330; 
         } else {
-            this.posX = posX; // Feste Position auf der X-Achse
-            this.posY = posY; // Feste Position auf der Y-Achse
+            this.posX = posX; 
+            this.posY = posY; 
         }
     }
 
