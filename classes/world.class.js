@@ -51,8 +51,22 @@ class World {
                 console.log('after collision energy from character:', this.character.energy);
             }
         });
+        this.level.clouds.forEach((coin) => {
+            if (this.character.isColliding(coin)) {
+              console.log('Character collision with coin:', coin);
+              this.removeCoin(coin);
+            }
+          });
     }
 
+    removeCoin(coin) {
+        // Entferne das Coin-Objekt aus dem Spiel
+        var coinIndex = this.level.clouds.indexOf(coin);
+        if (coinIndex !== -1) {
+            this.level.clouds.splice(coinIndex, 1);
+        }
+        // Weitere Aufräumarbeiten oder Aktionen...
+      }
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); //nun kann man auf die lokale canvas var. zugreifen
