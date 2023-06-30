@@ -63,6 +63,9 @@ class World {
                 } else if (cloud instanceof Bottle) {
                     console.log('Character collided with bottle:', cloud);
                     this.removeBottle(cloud);
+                    this.statusBarBottle.updateBottleStatusBar();
+                    this.statusBarBottle.countSessionBottle++;
+                    console.log('session bottles:', this.statusBarBottle.countSessionBottle);
                     // Weitere Aktionen für das Aufnehmen der Flasche ausführen
                 }
             }

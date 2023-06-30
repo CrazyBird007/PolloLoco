@@ -8,6 +8,7 @@ class StatusBarBottle extends StatusBarHealth {
         './img/7_statusbars/1_statusbar/3_statusbar_bottle/orange/100.png',
     ];
     percentage = 0;
+    countSessionBottle = 0;
 
 
     constructor() {
@@ -19,4 +20,20 @@ class StatusBarBottle extends StatusBarHealth {
         this.width = 110;
         this.height = 40;
     }
+
+
+    updateBottleStatusBar() {
+        this.percentage += 17; // 100 / coin menge = percentage wert um bei allen coins 100 zu haben...
+        if (this.percentage > 100) {
+          this.percentage = 100; // Stelle sicher, dass der Wert der percentage-Variable nicht über 100 geht
+        }
+    
+        let imageIndex = this.resolveImageIndex(this.percentage); // Ermittle den Index des entsprechenden Bildes
+        let imagePath = this.IMAGES[imageIndex]; // Hole den Pfad des Bildes basierend auf dem Index
+        this.img = this.imageCache[imagePath]; // Setze das Bild in der StatusBar
+    
+        // Weitere Aktionen oder Logik nach der Aktualisierung der StatusBar...
+      }
+    
+      // Weitere Methoden der StatusBarCoin-Klasse...
 }
