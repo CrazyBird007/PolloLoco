@@ -6,6 +6,8 @@ class World {
     keyboard;
     camera_x = 0;
     statusBar = new StatusBarHealth();
+    statusBarBottle = new StatusBarBottle();
+    statusBarCoin = new StatusBarCoin();
     throwableObjects = [];
 
 
@@ -65,6 +67,8 @@ class World {
         this.ctx.translate(-this.camera_x, 0); //verschiebt die kamera zurück damit die statusbar nicht bewegt wird (ende des verschiebens)
         // ---------------------------- space for fixed objects---------------------------------------
         this.addToMap(this.statusBar); //fügt die statusbar zur map hinzu
+        this.addToMap(this.statusBarBottle); //fügt die statusbar zur map hinzu
+        this.addToMap(this.statusBarCoin); //fügt die statusbar zur map hinzu
         // console.log('wieso klappt es nicht');
         this.ctx.translate(this.camera_x, 0); // verschiebt die kamera wieder damit sich alle bilder bewegen wie oben bei dem selben code
 
