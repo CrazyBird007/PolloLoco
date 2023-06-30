@@ -30,7 +30,7 @@ class DrawableObject {
 
 
     drawFrameBorder(ctx) {
-        if (this instanceof Character || this instanceof EnemyChicken || this instanceof Endboss || this instanceof Coin || this instanceof Bottle) { //basic  grenzen vom bild aus
+        if (this instanceof EnemyChicken || this instanceof Endboss || this instanceof Coin || this instanceof Bottle) { //basic  grenzen vom bild aus
             ctx.beginPath(); //begin bis stroke() macht die blauen kästen um die images
             ctx.lineWidth = '2';
             ctx.strokeStyle = 'blue';

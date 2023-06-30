@@ -10,22 +10,22 @@ class MovableObject extends DrawableObject {
 
     //neuer isColliding code ; diese positionen sind für die characterabgrenzung wichtig und können ggf. geändert werden, 
     //schau dazu in der drawframeborder function nach:       // this.posX + 47, this.posY + 100, this.width - 90, this.height - 112
-    // isColliding(obj) { //hier gibt es noch eine offsetY, wieso?! für die höhe? gibts nun global und beim character jump ändert sie sich da
-    //     return (this.posX + 47 + this.width - 90) >= obj.posX &&
-    //         this.posX <= (obj.posX + obj.width) &&
-    //         (this.posY + 100 + this.offsetY + this.height - 112) >= obj.posY &&
-    //         (this.posY + 100 + this.offsetY) <= (obj.posY + obj.height);
-    //     // &&  //das && obj.onCollisionCourse; erstmal rauslassen
-    //     // obj.onCollisionCourse; // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt.
-    // }                              // Nur dann kollidieren wir. Nützlich bei Gegenständen, auf denen man stehen kann.
+    isColliding(obj) { //hier gibt es noch eine offsetY, wieso?! für die höhe? gibts nun global und beim character jump ändert sie sich da
+        return (this.posX + 47 + this.width - 90) >= obj.posX &&
+            this.posX + 47 <= (obj.posX + obj.width) &&
+            (this.posY + 100 + this.offsetY + this.height - 112) >= obj.posY &&
+            (this.posY + 100 + this.offsetY) <= (obj.posY + obj.height);
+        // &&  //das && obj.onCollisionCourse; erstmal rauslassen
+        // obj.onCollisionCourse; // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt.
+    }                              // Nur dann kollidieren wir. Nützlich bei Gegenständen, auf denen man stehen kann.
 
-    isColliding(obj) { //einfacherer alter colliding code, funktioniert auch
-        return this.posX + 47 + this.width - 90 > obj.posX &&
-        this.posY + 100 + this.height - 112 > obj.posY &&
-        this.posX + 47 < obj.posX + obj.width &&  //im video fehlt das +obj.width
-        this.posY + 100 < obj.posY + obj.height;
-        //this.posX + 47, this.posY + 100, this.width - 90, this.height - 112 //(das ist der rote rahme vom character)
-    }
+    // isColliding(obj) { //einfacherer alter colliding code, funktioniert auch
+    //     return this.posX + 47 + this.width - 90 > obj.posX &&
+    //     this.posY + 100 + this.height - 112 > obj.posY &&
+    //     this.posX + 47 < obj.posX + obj.width &&  //im video fehlt das +obj.width
+    //     this.posY + 100 < obj.posY + obj.height;
+    //     //this.posX + 47, this.posY + 100, this.width - 90, this.height - 112 //(das ist der rote rahme vom character, diese werte müssen noch hinzugefügt bzw abgezogen werden)
+    // }
 
 
     hit() {
