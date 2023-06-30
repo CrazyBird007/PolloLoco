@@ -99,6 +99,7 @@ class Character extends MovableObject {
                     document.getElementById('looseGame').classList.remove('d-none');
                     for (let i = 1; i < 9999; i++) window.clearInterval(i); //stoppt alle intervalle 
                     document.getElementById('startButton').classList.remove('d-none');
+                    console.log('deine punktzahl:', this.world.statusBarCoin.countSessionCoins); //kann noch im endscreen gezeigt werden
                 }, 1220);
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);

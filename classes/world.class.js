@@ -56,6 +56,9 @@ class World {
                 if (cloud instanceof Coin) {
                     console.log('Character collided with coin:', cloud);
                     this.removeCoin(cloud);
+                    this.statusBarCoin.updateCoinStatusBar();
+                    this.statusBarCoin.countSessionCoins++;
+                    console.log('session coins:', this.statusBarCoin.countSessionCoins);
                     // Weitere Aktionen für das Aufnehmen der Münze ausführen
                 } else if (cloud instanceof Bottle) {
                     console.log('Character collided with bottle:', cloud);
