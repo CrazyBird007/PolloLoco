@@ -24,7 +24,6 @@ class World {
 
     setWorld() {
         this.character.world = this; // hier wird mit = this alles aus der world übergeben damit man auf alles zugreifen kann im char.
-        this.character.world = this; // hier wird mit = this alles aus der world übergeben damit man auf alles zugreifen kann im char.
     } // man greift auf character auf die variable world dort zu und setzt die variablen von hier da rein
 
 
