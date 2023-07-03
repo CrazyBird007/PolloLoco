@@ -2,10 +2,14 @@ class EnemyChicken extends MovableObject {
     height = 100;
     width = 100;
     posY = 365;
+    energy = 100;
     IMAGES_WALKING = [
         'img/3_enemies_chicken/chicken_normal/1_walk/1_w.png',
         'img/3_enemies_chicken/chicken_normal/1_walk/2_w.png',
         'img/3_enemies_chicken/chicken_normal/1_walk/3_w.png',
+    ];
+    IMAGES_DEAD = [
+        'img/3_enemies_chicken/chicken_normal/2_dead/dead.png',
     ];
 
 
@@ -15,6 +19,7 @@ class EnemyChicken extends MovableObject {
 
         this.posX = 300 + Math.random() * 10000; //lässt die gegner random auf der x achse spawnen
         this.loadImages(this.IMAGES_WALKING);
+        this.loadImages(this.IMAGES_DEAD);
         this.animate();
         this.speed = 0.15 + Math.random() * 0.12;
     }
@@ -31,5 +36,12 @@ class EnemyChicken extends MovableObject {
             // this.currentImage++;
             this.playAnimation(this.IMAGES_WALKING); // die oeberen 4 zeilen ausgelagert in die playanimation() in movable objects
         }, 280);
+    }
+
+    hit() {
+        this.energy -= 100;
+        if (this.energy < 0) {
+            this.energy = 0;
+        }
     }
 }

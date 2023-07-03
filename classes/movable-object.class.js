@@ -4,7 +4,7 @@ class MovableObject extends DrawableObject {
     speedY = 0;
     acceleration = 3;
     offsetY = 0; //man könnte dem character beim springen offsetY geben
-    energy = 10000;
+    energy = 1000;
     lastHit = 0;
 
 
@@ -26,6 +26,15 @@ class MovableObject extends DrawableObject {
     //     this.posY + 100 < obj.posY + obj.height;
     //     //this.posX + 47, this.posY + 100, this.width - 90, this.height - 112 //(das ist der rote rahme vom character, diese werte müssen noch hinzugefügt bzw abgezogen werden)
     // }
+
+    isCollidingEnemy(obj) {
+        return (this.posX + this.width) >= obj.posX &&
+            this.posX <= (obj.posX + obj.width) &&
+            (this.posY + this.offsetY + this.height) >= obj.posY &&
+            (this.posY + this.offsetY) <= (obj.posY + obj.height);
+        // &&  //das && obj.onCollisionCourse; erstmal rauslassen
+        // obj.onCollisionCourse; // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt.
+    }
 
 
     hit() {
@@ -89,6 +98,7 @@ class MovableObject extends DrawableObject {
             return this.posY < 180; //wenn posY kleiner als 180 ist bedeutet das das sich das objekt in der luft befindet
         }
     }
+
 
     jump() {
         this.speedY = 30;

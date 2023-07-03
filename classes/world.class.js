@@ -10,6 +10,7 @@ class World {
     statusBarCoin = new StatusBarCoin();
     throwableObjects = [];
     collectedBottles = 0;
+    bottle;
 
 
     constructor(canvas, keyboard) {
@@ -29,16 +30,16 @@ class World {
 
     run() {  //hier wird x mal pro sec. geprüft ob elemente ind er welt miteinander collidieren oder nicht
         setInterval(() => {
-            this.checkCollisions();
             this.checkThrowObjects();
+            this.checkCollisions();
         }, 250);
     }
 
 
     checkThrowObjects() {
         if (this.keyboard.F && this.collectedBottles > 0) {
-            let bottle = new ThrowableObject(this.character.posX + 75, this.character.posY + 130);
-            this.throwableObjects.push(bottle);
+            this.bottle = new ThrowableObject(this.character.posX + 75, this.character.posY + 130);
+            this.throwableObjects.push(this.bottle);
             this.collectedBottles--; //zieht wieder eine bottle ab wenn man wirft
             this.statusBarBottle.updateBottleStatusBarWhenThrow(); //zieht bottles von der statusbar ab
             console.log('current bottles:', this.collectedBottles);
@@ -47,6 +48,120 @@ class World {
 
 
     checkCollisions() {
+        // this.level.enemies.forEach((enemy) => { //gegner treffen, funktioniert
+        //     this.throwableObjects.forEach((object) => {
+        //       if (object.isCollidingEnemy(enemy)) { //warum auch immer ist enemy nur der endboss ggf. wegen der größe und der dauer
+        //         console.log('Flasche trifft Gegner');  //der aktualisierung können die kleinen nicht getroffen werden
+        //         enemy.hit(); // Enemy wird getroffen
+        //         console.log('bottle trifft endboss leben:', enemy.energy);
+        //       }
+        //     });
+        //   });
+
+        // this.level.enemies.forEach((enemy) => {  //gegner aus array entfernen wenn getroffen, funktioniert
+        //     this.throwableObjects.forEach((object) => {
+        //       if (object.isCollidingEnemy(enemy)) {
+        //         console.log('Flasche trifft Gegner');
+        //         enemy.hit();
+
+        //         // Entferne das Monster aus dem Spiel
+        //         let enemyIndex = this.level.enemies.indexOf(enemy);
+        //         // if (enemyIndex !== -1) {
+        //         //   this.level.enemies.splice(enemyIndex, 1);
+        //         // }
+
+        //         console.log('bottle trifft Gegner leben:', enemy.energy);
+        //         console.log('enemyindex :', enemyIndex);
+        //       }
+        //     });
+        //   });
+
+        // this.level.enemies.forEach((enemy) => { // für spezielle gegner eigene sachen einstellen
+        //     this.throwableObjects.forEach((object) => {
+        //         if (object.isCollidingEnemy(enemy)) {
+        //             console.log('Flasche trifft Gegner');
+        //             let enemyIndex = this.level.enemies.indexOf(enemy);
+
+        //             if (enemy instanceof Endboss) {
+        //                 // Spezifische Aktionen für den Endboss
+        //                 enemy.hit();
+        //                 console.log('bottle trifft Endboss Leben:', enemy.energy);
+        //             } else if (enemy instanceof EnemyChicken) {
+        //                 // Spezifische Aktionen für den normalen Gegner
+        //                 enemy.hit();
+        //                 console.log('bottle trifft normalen Gegner Leben:', enemy.energy);
+        //             } else if (enemy instanceof SmallEnemyChicken) {
+        //                 // Spezifische Aktionen für den kleinen Gegner
+        //                 enemy.hit();
+        //                 console.log('bottle trifft kleinen Gegner Leben:', enemy.energy);
+        //             }
+
+        //             // Weitere Aktionen nach dem Treffen des Gegners
+        //             // ...
+
+        //             // Entferne das getroffene Monster aus dem Spiel
+        //             // if (enemyIndex !== -1) {
+        //             //   this.level.enemies.splice(enemyIndex, 1);
+        //             // }
+
+        //             console.log('enemyindex:', enemyIndex);
+        //         }
+        //     });
+        // });
+
+        this.level.enemies.forEach((enemy) => { //für gegner eigene sachen einstellen wie playanimation
+            this.throwableObjects.forEach((object) => {
+                if (object.isCollidingEnemy(enemy)) {
+                    console.log('Flasche trifft Gegner / objekt', enemy, object);
+                    let enemyIndex = this.level.enemies.indexOf(enemy);
+
+                    if (enemy instanceof Endboss) {
+                        enemy.hit();
+                        console.log('bottle trifft Endboss Leben:', enemy.energy);
+
+                        if (enemy.isDead()) {
+                            enemy.playAnimation(enemy.IMAGES_DEAD);
+                            setTimeout(() => {
+                                document.getElementById('looseGame').classList.remove('d-none'); //hier muss noch der win -screen angezeigt werden!!!
+                                for (let i = 1; i < 9999; i++) window.clearInterval(i); //stoppt alle intervalle 
+                                document.getElementById('startButton').classList.remove('d-none');
+                                console.log('deine punktzahl:', this.statusBarCoin.countSessionCoins); //kann noch im endscreen gezeigt werden
+                            }, 1220);
+                        }
+                    } else if (enemy instanceof EnemyChicken) {
+                        enemy.hit();
+                        console.log('bottle trifft normalen Gegner Leben:', enemy.energy);
+                        if (enemy.isDead()) {
+                            enemy.playAnimation(enemy.IMAGES_DEAD);
+                            setTimeout(() => {
+                            this.level.enemies.splice(enemyIndex, 1);
+                        }, 1500);
+                        }
+                    } else if (enemy instanceof SmallEnemyChicken) {
+                        enemy.hit();
+                        console.log('bottle trifft kleinen Gegner Leben:', enemy.energy);
+                        if (enemy.isDead()) {
+                            enemy.playAnimation(enemy.IMAGES_DEAD);
+                            setTimeout(() => {
+                            this.level.enemies.splice(enemyIndex, 1);
+                        }, 1500);
+                        }
+                    }
+
+                    // Weitere Aktionen nach dem Treffen des Gegners
+                    // ...
+
+                    // Entferne das getroffene Monster aus dem Spiel
+                    // let enemyIndex = this.level.enemies.indexOf(enemy);
+                    // if (enemyIndex !== -1) {
+                    //   this.level.enemies.splice(enemyIndex, 1);
+                    // }
+
+                    console.log('enemyindex:', enemyIndex);
+                }
+            });
+        });
+
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
                 console.log('Character collision with:', enemy); //zeigt an wo man mit welchem gegner collidiert!
@@ -76,6 +191,7 @@ class World {
         });
     }
 
+
     removeCoin(coin) {
         // Entferne das Coin-Objekt aus dem Spiel
         let coinIndex = this.level.clouds.indexOf(coin);
@@ -85,6 +201,7 @@ class World {
         // Weitere Aufräumarbeiten oder Aktionen...
     }
 
+
     removeBottle(bottle) {
         // Entferne das Bottle-Objekt aus dem Spiel
         let bottleIndex = this.level.clouds.indexOf(bottle);
@@ -93,6 +210,7 @@ class World {
         }
         // Weitere Aufräumarbeiten oder Aktionen...
     }
+
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); //nun kann man auf die lokale canvas var. zugreifen
