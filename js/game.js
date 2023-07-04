@@ -132,3 +132,24 @@ function handleFullscreenChange() {
         canvasFullscreen.style.height = originalCanvasHeight + 'px';
     }
 }
+
+
+
+// help infos
+// function helpInfo() {
+
+// }
+
+function showPopup() {
+    let popup = document.getElementById("popup");
+    popup.style.display = "block";
+}
+
+function closePopup() {
+    let popup = document.getElementById("popup");
+    popup.style.display = "none";
+}
+
+function doNotClose(event) {
+    event.stopPropagation();
+}

@@ -110,9 +110,12 @@ class World {
         // });
 
         this.level.enemies.forEach((enemy) => { //für gegner eigene sachen einstellen wie playanimation
+            let lastHit = false; // Flag für den letzten Treffer
+
             this.throwableObjects.forEach((object) => {
-                if (object.isCollidingEnemy(enemy)) {
+                if (!lastHit && object.isCollidingEnemy(enemy)) { //schaut ob die flasche schonmal getroffen hat
                     console.log('Flasche trifft Gegner / objekt', enemy, object);
+                    lastHit = true; // Setze das Flag auf true, um anzuzeigen, dass der Treffer stattgefunden hat
                     let enemyIndex = this.level.enemies.indexOf(enemy);
 
                     if (enemy instanceof Endboss) {
@@ -125,14 +128,21 @@ class World {
                                 document.getElementById('looseGame').classList.remove('d-none'); //hier muss noch der win -screen angezeigt werden!!!
                                 for (let i = 1; i < 9999; i++) window.clearInterval(i); //stoppt alle intervalle 
                                 document.getElementById('startButton').classList.remove('d-none');
-                                console.log('deine punktzahl:', this.statusBarCoin.countSessionCoins); //kann noch im endscreen gezeigt werden
+                                document.getElementById('winGameInfos').classList.add('d-flex');
+                                document.getElementById('winGameInfos').innerHTML = /*html*/`
+                                <!-- <div> -->
+                                    Gewonnen! Du hast ${this.statusBarCoin.countSessionCoins} Punkte erreicht, Glückwunsch!
+                                <!-- </div> -->
+                                `;
                             }, 1220);
                         }
                     } else if (enemy instanceof EnemyChicken) {
                         enemy.hit();
                         console.log('bottle trifft normalen Gegner Leben:', enemy.energy);
                         if (enemy.isDead()) {
+                            this.stopAnimation();
                             enemy.playAnimation(enemy.IMAGES_DEAD);
+                            
                             setTimeout(() => {
                             this.level.enemies.splice(enemyIndex, 1);
                         }, 1500);
@@ -191,6 +201,10 @@ class World {
         });
     }
 
+    stopAnimation() {
+        clearInterval(this.level.enemies.moveInterval);
+        clearInterval(this.level.enemies.animationInterval);
+      }
 
     removeCoin(coin) {
         // Entferne das Coin-Objekt aus dem Spiel

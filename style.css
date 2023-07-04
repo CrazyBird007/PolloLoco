@@ -24,7 +24,7 @@ h1 {
     font-size: 60px;
     letter-spacing: 4px;
     text-shadow: 2px 2px 2px rgba(94, 84, 84, 0.499);
-}
+}   
 
 #startButton {
     font-family: 'zabras', Arial, Helvetica, sans-serif;
@@ -89,6 +89,50 @@ h1 {
     margin-left: 10px;
 }
 
+.helpButton {
+    cursor: pointer;
+    position: absolute;
+    background-color: green;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    width: 50px;
+    border-radius: 50px;
+    top: 79%;
+    bottom: 0;
+    right: 0;
+    left: 77%;
+}
+
+.helpButton img {
+    height: 40px;
+    width: 40px;
+}
+
+.popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+}
+
+.popupContent {
+    background-color: #efb81f;
+    position: absolute;
+    font-size: 30px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    border-radius: 5px;
+    letter-spacing: 2px;
+}
+
 #looseGame {
     background-image: url('./img/9_intro_outro_screens/game_over/game over.png');
     background-position: center;
@@ -98,6 +142,33 @@ h1 {
     bottom: 0;
     right: 0;
     left: 0;
+}
+
+#startGame {
+    background-image: url('./img/9_intro_outro_screens/start/startscreen_1.png');
+    background-position: center;
+    background-size: cover;
+    position: absolute;
+    border-radius: 10px;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+
+#winGameInfos {
+    background-position: center;
+    background-size: cover;
+    position: absolute;
+    border-radius: 10px;
+    background-color: rgb(184, 243, 23);
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    top: 80%;
+    bottom: 5%;
+    right: 20%;
+    left: 20%;
 }
 
 #fullscreen {
@@ -169,5 +240,8 @@ h1 {
     }
     #fullscreenButton {
         display: none;
+    }
+    #winGameInfos {
+        font-size: 16px;
     }
 }

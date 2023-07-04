@@ -37,7 +37,7 @@
         <div id="fullscreen">
             <div class="mobileButtons">
                 <div class="mobileButtonsTop">
-                    <img id="" src="./img/mobil_icons/icons8-hilfe-100.png" alt="">
+                    <img id="helpButtonSmall" src="./img/mobil_icons/icons8-hilfe-100.png" alt="">
                     <img id="" src="./img/mobil_icons/icons8-kein-ton-100.png" alt="">
                     <img id="" src="./img/mobil_icons/icons8-zuhause-100.png" alt="">
                 </div>
@@ -56,7 +56,28 @@
             </canvas>
             <div id="looseGame" class="d-none">
             </div>
+            <div id="startGame">
+            </div>
+            <div id="winGameInfos" class="d-none">
+            </div>
             <button id="startButton" onclick="initLevel1(), init()">START</button>
+        </div>
+        <div onclick="showPopup()" class="helpButton" id="helpButton">
+            <img src="./img/mobil_icons/icons8-hilfe-100.png" alt="">
+        </div>
+        <div id="popup" class="popup" onclick="closePopup()">
+            <div class="popupContent" onclick="doNotClose(event)">
+                <h3>Willkommen bei El Pollo Loco </h3>
+                <h4>Tastenerklärung:</h4>
+                <p>Links laufen: <b>A</b> oder <b>←</b> </p>
+                <p>Rechts laufen: <b>D</b> oder <b>→</b> </p>
+                <p>Springen mit: <b>W</b> oder <b>↑</b> oder <b>Leertaste</b> </p>
+                <p>Angriff mit: <b>F</b> oder <b>Enter</b> </p>
+                <h4>Story:</h4>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet, amet. Nostrum recusandae 
+                    fugiat, laudantium, nihil, beatae labore ipsa distinctio facere unde velit delectus blanditiis 
+                    cumque esse mollitia dolor consequatur fugit.</p>
+            </div>
         </div>
         <button id="fullscreenButton" class="fullscreen" onclick="fullscreen()">Fullscreen</button>
 

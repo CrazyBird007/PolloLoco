@@ -6,8 +6,12 @@ class MovableObject extends DrawableObject {
     offsetY = 0; //man könnte dem character beim springen offsetY geben
     energy = 1000;
     lastHit = 0;
+    moveInterval = null;
+    animationInterval = null;
+    // hasHit = false; // Neue Eigenschaft für den Berührungsstatus ob die flasche schonmal getroffen hat (grade ind er world iscolliding functions elber dirnnne)
 
 
+// offsetY jetzt verstanden, das könnte man z.b. dem charakter geben um dessen äußere werte anzupassen oder dem coin etc.
     //neuer isColliding code ; diese positionen sind für die characterabgrenzung wichtig und können ggf. geändert werden, 
     //schau dazu in der drawframeborder function nach:       // this.posX + 47, this.posY + 100, this.width - 90, this.height - 112
     isColliding(obj) { //hier gibt es noch eine offsetY, wieso?! für die höhe? gibts nun global und beim character jump ändert sie sich da
@@ -27,7 +31,7 @@ class MovableObject extends DrawableObject {
     //     //this.posX + 47, this.posY + 100, this.width - 90, this.height - 112 //(das ist der rote rahme vom character, diese werte müssen noch hinzugefügt bzw abgezogen werden)
     // }
 
-    isCollidingEnemy(obj) {
+    isCollidingEnemy(obj) { //ohne die character anpassungen nur außenkante der images....
         return (this.posX + this.width) >= obj.posX &&
             this.posX <= (obj.posX + obj.width) &&
             (this.posY + this.offsetY + this.height) >= obj.posY &&
