@@ -48,67 +48,6 @@ class World {
 
 
     checkCollisions() {
-        // this.level.enemies.forEach((enemy) => { //gegner treffen, funktioniert
-        //     this.throwableObjects.forEach((object) => {
-        //       if (object.isCollidingEnemy(enemy)) { //warum auch immer ist enemy nur der endboss ggf. wegen der größe und der dauer
-        //         console.log('Flasche trifft Gegner');  //der aktualisierung können die kleinen nicht getroffen werden
-        //         enemy.hit(); // Enemy wird getroffen
-        //         console.log('bottle trifft endboss leben:', enemy.energy);
-        //       }
-        //     });
-        //   });
-
-        // this.level.enemies.forEach((enemy) => {  //gegner aus array entfernen wenn getroffen, funktioniert
-        //     this.throwableObjects.forEach((object) => {
-        //       if (object.isCollidingEnemy(enemy)) {
-        //         console.log('Flasche trifft Gegner');
-        //         enemy.hit();
-
-        //         // Entferne das Monster aus dem Spiel
-        //         let enemyIndex = this.level.enemies.indexOf(enemy);
-        //         // if (enemyIndex !== -1) {
-        //         //   this.level.enemies.splice(enemyIndex, 1);
-        //         // }
-
-        //         console.log('bottle trifft Gegner leben:', enemy.energy);
-        //         console.log('enemyindex :', enemyIndex);
-        //       }
-        //     });
-        //   });
-
-        // this.level.enemies.forEach((enemy) => { // für spezielle gegner eigene sachen einstellen
-        //     this.throwableObjects.forEach((object) => {
-        //         if (object.isCollidingEnemy(enemy)) {
-        //             console.log('Flasche trifft Gegner');
-        //             let enemyIndex = this.level.enemies.indexOf(enemy);
-
-        //             if (enemy instanceof Endboss) {
-        //                 // Spezifische Aktionen für den Endboss
-        //                 enemy.hit();
-        //                 console.log('bottle trifft Endboss Leben:', enemy.energy);
-        //             } else if (enemy instanceof EnemyChicken) {
-        //                 // Spezifische Aktionen für den normalen Gegner
-        //                 enemy.hit();
-        //                 console.log('bottle trifft normalen Gegner Leben:', enemy.energy);
-        //             } else if (enemy instanceof SmallEnemyChicken) {
-        //                 // Spezifische Aktionen für den kleinen Gegner
-        //                 enemy.hit();
-        //                 console.log('bottle trifft kleinen Gegner Leben:', enemy.energy);
-        //             }
-
-        //             // Weitere Aktionen nach dem Treffen des Gegners
-        //             // ...
-
-        //             // Entferne das getroffene Monster aus dem Spiel
-        //             // if (enemyIndex !== -1) {
-        //             //   this.level.enemies.splice(enemyIndex, 1);
-        //             // }
-
-        //             console.log('enemyindex:', enemyIndex);
-        //         }
-        //     });
-        // });
-
         this.level.enemies.forEach((enemy) => { //für gegner eigene sachen einstellen wie playanimation
             let lastHit = false; // Flag für den letzten Treffer
 
@@ -130,13 +69,11 @@ class World {
                                 document.getElementById('startButton').classList.remove('d-none');
                                 document.getElementById('winGameInfos').classList.add('d-flex');
                                 document.getElementById('winGameInfos').innerHTML = /*html*/`
-                                <!-- <div> -->
                                     Gewonnen! Du hast ${this.statusBarCoin.countSessionCoins} Punkte erreicht, Glückwunsch!
-                                <!-- </div> -->
                                 `;
                             }, 1220);
                         }
-                    } else if (enemy instanceof EnemyChicken) {
+                    } else if (enemy instanceof EnemyChicken && !enemy.isDead() || enemy instanceof SmallEnemyChicken && !enemy.isDead()) {
                         enemy.hit();
                         console.log('bottle trifft normalen Gegner Leben:', enemy.energy);
                         if (enemy.isDead()) {
@@ -147,25 +84,7 @@ class World {
                             this.level.enemies.splice(enemyIndex, 1);
                         }, 1500);
                         }
-                    } else if (enemy instanceof SmallEnemyChicken) {
-                        enemy.hit();
-                        console.log('bottle trifft kleinen Gegner Leben:', enemy.energy);
-                        if (enemy.isDead()) {
-                            enemy.playAnimation(enemy.IMAGES_DEAD);
-                            setTimeout(() => {
-                            this.level.enemies.splice(enemyIndex, 1);
-                        }, 1500);
-                        }
-                    }
-
-                    // Weitere Aktionen nach dem Treffen des Gegners
-                    // ...
-
-                    // Entferne das getroffene Monster aus dem Spiel
-                    // let enemyIndex = this.level.enemies.indexOf(enemy);
-                    // if (enemyIndex !== -1) {
-                    //   this.level.enemies.splice(enemyIndex, 1);
-                    // }
+                    } 
 
                     console.log('enemyindex:', enemyIndex);
                 }
@@ -180,6 +99,7 @@ class World {
                 console.log('after collision energy from character:', this.character.energy);
             }
         });
+        
         this.level.clouds.forEach((cloud) => {
             if (this.character.isColliding(cloud)) {
                 if (cloud instanceof Coin) {
