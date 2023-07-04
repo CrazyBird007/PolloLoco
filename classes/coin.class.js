@@ -8,12 +8,11 @@ class Coin extends MovableObject {
     ];
 
 
-    constructor(posX, posY, randomSpawn = false) { //kann feste oder zufällige positionen der x/y achse weitergeben aus level1.js
+    constructor(posX, posY, randomSpawn = false) { 
         super().loadImage('./img/8_coin/coin_1.png');
         this.loadImages(this.IMAGES_COIN);
         this.animate();
-
-        if (randomSpawn) { //wenn random spawn dann wird hier x /y ausgerechnet, wenn es koordinaten gibt dann werden diese genutzt
+        if (randomSpawn) { 
             this.posX = -500 + Math.random() * 2750; 
             this.posY = 70 + Math.random() * 330; 
         } else {

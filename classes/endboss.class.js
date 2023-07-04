@@ -41,17 +41,15 @@ class Endboss extends MovableObject {
     ];
 
 
-    constructor(posX, posY, randomSpawn = false) { //kann feste oder zufällige positionen der x/y achse weitergeben aus level1.js
+    constructor(posX, posY, randomSpawn = false) { 
         super().loadImage(this.IMAGES_ALERT[0]);
         this.loadImages(this.IMAGES_ALERT);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HURT);
         this.animate();
-
-        if (randomSpawn) { //wenn random spawn dann wird hier x /y ausgerechnet, wenn es koordinaten gibt dann werden diese genutzt
+        if (randomSpawn) { 
             this.posX = -300 + Math.random() * 2300;
             this.posY = posY;
-            // this.posY = 70 + Math.random() * 330; 
         } else {
             this.posX = posX;
             this.posY = posY;

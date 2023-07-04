@@ -60,7 +60,8 @@ class Character extends MovableObject {
         'img/2_character_pepe/1_idle/long_idle/I-19.png',
         'img/2_character_pepe/1_idle/long_idle/I-20.png',
     ];
-    world; // hier werden alle variablen aus der world class gespeichert //  durch die setWorld() func. aus der world class
+    world;
+
 
     constructor() {
         super().loadImage('./img/2_character_pepe/2_walk/W-21.png');
@@ -76,51 +77,122 @@ class Character extends MovableObject {
     }
 
 
-    animate() {
-        setInterval(() => {
-            if (this.world.keyboard.RIGHT && this.posX < this.world.level.level_end_x) { // char kann nicht weiter als level_endX nach rechts gehen
-                this.moveRight();
-                this.otherDirection = false;
-            }
-            if (this.world.keyboard.LEFT && this.posX > -567) { // durch das && posX kann der charakter nciht weiter als > X nach links laufen
-                this.moveLeft();
-                this.otherDirection = true;
-            }
-            if (this.world.keyboard.UP && !this.isAboveGround()) { //er springt wenn man key UP drückt, nur wenn er am boden ist
-                this.jump();
-            }
+    // animate() { //ganze funktion
+    //     setInterval(() => {
+    //         if (this.world.keyboard.RIGHT && this.posX < this.world.level.level_end_x) { // char kann nicht weiter als level_endX nach rechts gehen
+    //             this.moveRight();
+    //             this.otherDirection = false;
+    //         }
+    //         if (this.world.keyboard.LEFT && this.posX > -567) { // durch das && posX kann der charakter nciht weiter als > X nach links laufen
+    //             this.moveLeft();
+    //             this.otherDirection = true;
+    //         }
+    //         if (this.world.keyboard.UP && !this.isAboveGround()) { //er springt wenn man key UP drückt, nur wenn er am boden ist
+    //             this.jump();
+    //         }
+    //         this.world.camera_x = -this.posX + 150; // wenn x vom char. verändert wird, wird die camera_x variable verändert, so bewegt sich das bild
+    //     }, 1000 / 60);        // durch das z.b. +150  wird der charakter im bild verschoben, so könnte er mittig sein oder leicht links
+    //     setInterval(() => {
+    //         if (this.isDead()) {
+    //             this.playAnimation(this.IMAGES_DEAD);
+    //             setTimeout(() => {
+    //                 document.getElementById('looseGame').classList.remove('d-none');
+    //                 for (let i = 1; i < 9999; i++) window.clearInterval(i);
+    //                 document.getElementById('startButton').classList.remove('d-none');
+    //                 document.getElementById('winGameInfos').classList.add('d-flex');
+    //                 document.getElementById('winGameInfos').innerHTML = /*html*/`
+    //                 Verloren! Du hast ${this.world.statusBarCoin.countSessionCoins} Punkte erreicht.
+    //             `;
+    //             }, 1220);
+    //         } else if (this.isHurt()) {
+    //             this.playAnimation(this.IMAGES_HURT);
+    //         } else if (this.isAboveGround()) {
+    //             this.playAnimation(this.IMAGES_JUMPING);
+    //             this.lastActiveTime = new Date();
+    //         } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+    //             this.playAnimation(this.IMAGES_WALKING);
+    //             this.lastActiveTime = new Date();
+    //         } else {
+    //             const currentTime = new Date();
+    //             const idleTime = currentTime - this.lastActiveTime;
+    //             const startLongIdle = 7000;
+    //             if (idleTime >= startLongIdle) {
+    //                 this.playAnimation(this.IMAGES_LONG_IDLE);
+    //             } else {
+    //                 this.playAnimation(this.IMAGES_IDLE);
+    //             }
+    //         }
+    //     }, 102);
+    // }
 
-            this.world.camera_x = -this.posX + 150; // wenn x vom char. verändert wird, wird die camera_x variable verändert, so bewegt sich das bild
-        }, 1000 / 60);   // durch das + wird der charakter im bild verschoben, so könnte er mittig sein oder leicht links
+
+    animate() { //ausgelagerte funktion
+        setInterval(() => {
+            this.moveCharacter();
+            this.moveCamera();
+        }, 1000 / 60);
         setInterval(() => {
             if (this.isDead()) {
-                this.playAnimation(this.IMAGES_DEAD);
-                setTimeout(() => {
-                    document.getElementById('looseGame').classList.remove('d-none');
-                    for (let i = 1; i < 9999; i++) window.clearInterval(i); //stoppt alle intervalle 
-                    document.getElementById('startButton').classList.remove('d-none');
-                    console.log('deine punktzahl:', this.world.statusBarCoin.countSessionCoins); //kann noch im endscreen gezeigt werden
-                }, 1220);
+                this.handleCharacterDead();
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
             } else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);
                 this.lastActiveTime = new Date();
-            } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {  // die charakter animation wird nur abgespielt wenn man die taste nach rechts/links drückt
+            } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                 this.playAnimation(this.IMAGES_WALKING);
                 this.lastActiveTime = new Date();
             } else {
-                const currentTime = new Date();
-                const idleTime = currentTime - this.lastActiveTime;
-                const startLongIdle = 6000; //long idle after 6 sec.
-                if (idleTime >= startLongIdle) {
-                    this.playAnimation(this.IMAGES_LONG_IDLE);
-                } else {
-                    this.playAnimation(this.IMAGES_IDLE);
-                }
+                this.handleIdleAnimation();
             }
         }, 102);
     }
+
+    
+    moveCharacter() {
+        if (this.world.keyboard.RIGHT && this.posX < this.world.level.level_end_x) {
+            this.moveRight();
+            this.otherDirection = false;
+        }
+        if (this.world.keyboard.LEFT && this.posX > -567) {
+            this.moveLeft();
+            this.otherDirection = true;
+        }
+        if (this.world.keyboard.UP && !this.isAboveGround()) {
+            this.jump();
+        }
+    }
+    
+
+    moveCamera() {
+        this.world.camera_x = -this.posX + 150;
+    }
+
+    
+    handleCharacterDead() {
+        this.playAnimation(this.IMAGES_DEAD);
+        setTimeout(() => {
+            document.getElementById('looseGame').classList.remove('d-none');
+            for (let i = 1; i < 9999; i++) window.clearInterval(i);
+            document.getElementById('startButton').classList.remove('d-none');
+            document.getElementById('winGameInfos').classList.add('d-flex');
+            document.getElementById('winGameInfos').innerHTML = /*html*/`
+                Verloren! Du hast ${this.world.statusBarCoin.countSessionCoins} Punkte erreicht.
+            `;
+        }, 1220);
+    }
+    
+    
+    handleIdleAnimation() {
+        const currentTime = new Date();
+        const idleTime = currentTime - this.lastActiveTime;
+        const startLongIdle = 7000;
+        if (idleTime >= startLongIdle) {
+            this.playAnimation(this.IMAGES_LONG_IDLE);
+        } else {
+            this.playAnimation(this.IMAGES_IDLE);
+        }
+    }    
 
 
     jump() {

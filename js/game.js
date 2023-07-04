@@ -5,7 +5,7 @@ let keyboard = new Keyboard();
 
 function init() {
     canvas = document.getElementById('canvas');
-    world = new World(canvas, keyboard); // der parameter canvas wird an den constructor der world class weitergegeben
+    world = new World(canvas, keyboard);
     buttonTouchEvents();
     console.log('My world is:', world.character, world.enemies, world.backgroundObjects, world.clouds);
 }
@@ -91,8 +91,7 @@ function buttonTouchEvents() {
         keyboard.F = false;
     });
 
-    // andere buttons
-    document.getElementById('startButton').addEventListener('touchstart', (e) => { //startet das spiel
+    document.getElementById('startButton').addEventListener('touchstart', (e) => { 
         e.preventDefault();
         initLevel1();
         init();
@@ -103,9 +102,6 @@ function buttonTouchEvents() {
         showPopup();
     });
 }
-
-
-
 
 
 // starts fullscreen with button and leave fullscreen with press Escape
@@ -146,12 +142,7 @@ function handleFullscreenChange() {
 }
 
 
-
-// help infos
-// function helpInfo() {
-
-// }
-
+// popup for help window
 function showPopup() {
     let popup = document.getElementById("popup");
     popup.style.display = "block";

@@ -8,17 +8,16 @@ class Bottle extends DrawableObject {
     ];
 
 
-    constructor(posX, posY, randomSpawn = false) { //kann feste oder zufällige positionen der x/y achse weitergeben aus level1.js
+    constructor(posX, posY, randomSpawn = false) {
         super();
         this.loadImages(this.IMAGES_BOTTLE);
         this.chooseRandomImage();
-
-        if (randomSpawn) { //wenn random spawn dann wird hier x /y ausgerechnet, wenn es koordinaten gibt dann werden diese genutzt
-            this.posX = 100 + Math.random() * 2200; 
-            this.posY = 390; //so stehen die flaschen immer auf dem boden
+        if (randomSpawn) {
+            this.posX = 100 + Math.random() * 2200;
+            this.posY = 390;
         } else {
-            this.posX = posX; 
-            this.posY = posY; 
+            this.posX = posX;
+            this.posY = posY;
         }
     }
 
@@ -27,5 +26,5 @@ class Bottle extends DrawableObject {
         let randomIndex = Math.floor(Math.random() * this.IMAGES_BOTTLE.length);
         let randomImage = this.IMAGES_BOTTLE[randomIndex];
         this.loadImage(randomImage);
-      }
+    }
 }

@@ -9,6 +9,7 @@ class StatusBarBottle extends StatusBarHealth {
   ];
   percentage = 0;
 
+
   constructor() {
     super();
     this.loadImages(this.IMAGES);
@@ -21,31 +22,23 @@ class StatusBarBottle extends StatusBarHealth {
 
 
   updateBottleStatusBar() {
-    this.percentage += 17; // 100 / coin menge = percentage wert um bei allen coins 100 zu haben...
+    this.percentage += 17; // 100 / bottle menge = percentage wert um bei allen bottles 100 zu haben...
     if (this.percentage > 100) {
-      this.percentage = 100; // Stelle sicher, dass der Wert der percentage-Variable nicht über 100 geht
+      this.percentage = 100;
     }
-
-    let imageIndex = this.resolveImageIndex(this.percentage); // Ermittle den Index des entsprechenden Bildes
-    let imagePath = this.IMAGES[imageIndex]; // Hole den Pfad des Bildes basierend auf dem Index
-    this.img = this.imageCache[imagePath]; // Setze das Bild in der StatusBar
-
-    // Weitere Aktionen oder Logik nach der Aktualisierung der StatusBar...
+    let imageIndex = this.resolveImageIndex(this.percentage);
+    let imagePath = this.IMAGES[imageIndex];
+    this.img = this.imageCache[imagePath];
   }
 
 
   updateBottleStatusBarWhenThrow() {
-    this.percentage -= 17; // 100 / coin menge = percenFtage wert um bei allen coins 100 zu haben...
+    this.percentage -= 17;// 100 / bottle menge = percentage wert um bei allen bottles 100 zu haben...
     if (this.percentage > 100) {
-      this.percentage = 100; // Stelle sicher, dass der Wert der percentage-Variable nicht über 100 geht
+      this.percentage = 100;
     }
-
-    let imageIndex = this.resolveImageIndex(this.percentage); // Ermittle den Index des entsprechenden Bildes
-    let imagePath = this.IMAGES[imageIndex]; // Hole den Pfad des Bildes basierend auf dem Index
-    this.img = this.imageCache[imagePath]; // Setze das Bild in der StatusBar
-
-    // Weitere Aktionen oder Logik nach der Aktualisierung der StatusBar...
+    let imageIndex = this.resolveImageIndex(this.percentage);
+    let imagePath = this.IMAGES[imageIndex];
+    this.img = this.imageCache[imagePath];
   }
-
-  // Weitere Methoden der StatusBarCoin-Klasse...
 }

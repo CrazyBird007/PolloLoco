@@ -24,16 +24,11 @@ class SmallEnemyChicken extends MovableObject {
 
     
     animate() {
-        setInterval(() => {//alle 144 sec. wird die function ausgeführt wo immer 0.12 px abgezogen werden, so bewegt sich die wolke
-            this.moveLeft();
-        }, 1000 / 144); //144 FPS , oft nimmt man auch 60
-
         setInterval(() => {
-            // let i = this.currentImage % this.IMAGES_WALKING.length; 
-            // let path = this.IMAGES_WALKING[i]; 
-            // this.img = this.imageCache[path];
-            // this.currentImage++;
-            this.playAnimation(this.IMAGES_WALKING); // die oeberen 4 zeilen ausgelagert in die playanimation() in movable objects
+            this.moveLeft();
+        }, 1000 / 144); 
+        setInterval(() => {
+            this.playAnimation(this.IMAGES_WALKING); 
         }, 280);
     }
 

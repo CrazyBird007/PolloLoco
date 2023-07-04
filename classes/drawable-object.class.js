@@ -8,9 +8,8 @@ class DrawableObject {
     currentImage = 0;
 
 
-    //loadImage('img/test.png')
     loadImage(path) {
-        this.img = new Image(); //lang: this.img = document.getElementbyId('image') gleich <img id="image" src="">
+        this.img = new Image(); 
         this.img.src = path;
     }
 
@@ -25,20 +24,20 @@ class DrawableObject {
 
 
     draw(ctx) {
-        ctx.drawImage(this.img, this.posX, this.posY, this.width, this.height) // zeigt das bild an/bzw alle bilder
+        ctx.drawImage(this.img, this.posX, this.posY, this.width, this.height);
     }
 
 
     drawFrameBorder(ctx) {
         if (this instanceof EnemyChicken || this instanceof Endboss || this instanceof Coin || this instanceof Bottle || this instanceof ThrowableObject || this instanceof SmallEnemyChicken) { //basic  grenzen vom bild aus
-            ctx.beginPath(); //begin bis stroke() macht die blauen kästen um die images
+            ctx.beginPath(); 
             ctx.lineWidth = '2';
             ctx.strokeStyle = 'blue';
             ctx.rect(this.posX, this.posY, this.width, this.height);
             ctx.stroke();
         }
-        if (this instanceof Character) { //richtige charakter grenzen die auch in der function isColliding() benutzt werden
-            ctx.beginPath(); //begin bis stroke() macht die blauen kästen um die images
+        if (this instanceof Character) {  //char. grenzen die auch fürs colliding verwendet werfen
+            ctx.beginPath();
             ctx.lineWidth = '3';
             ctx.strokeStyle = 'red';
             ctx.rect(this.posX + 47, this.posY + 100, this.width - 90, this.height - 112);

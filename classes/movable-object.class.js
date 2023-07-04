@@ -3,7 +3,7 @@ class MovableObject extends DrawableObject {
     otherDirection = false;
     speedY = 0;
     acceleration = 3;
-    offsetY = 0; //man könnte dem character beim springen offsetY geben
+    offsetY = 0; 
     energy = 100;
     lastHit = 0;
 
@@ -20,6 +20,7 @@ class MovableObject extends DrawableObject {
         // obj.onCollisionCourse; // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt.
     }                              // Nur dann kollidieren wir. Nützlich bei Gegenständen, auf denen man stehen kann.
 
+
     // isColliding(obj) { //einfacherer alter colliding code, funktioniert auch
     //     return this.posX + 47 + this.width - 90 > obj.posX &&
     //     this.posY + 100 + this.height - 112 > obj.posY &&
@@ -28,13 +29,12 @@ class MovableObject extends DrawableObject {
     //     //this.posX + 47, this.posY + 100, this.width - 90, this.height - 112 //(das ist der rote rahme vom character, diese werte müssen noch hinzugefügt bzw abgezogen werden)
     // }
 
+
     isCollidingEnemy(obj) { //ohne die character anpassungen nur außenkante der images....
         return (this.posX + this.width) >= obj.posX &&
             this.posX <= (obj.posX + obj.width) &&
             (this.posY + this.offsetY + this.height) >= obj.posY &&
             (this.posY + this.offsetY) <= (obj.posY + obj.height);
-        // &&  //das && obj.onCollisionCourse; erstmal rauslassen
-        // obj.onCollisionCourse; // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt.
     }
 
 
@@ -48,15 +48,15 @@ class MovableObject extends DrawableObject {
     }
 
 
-    isDead() { //hier wird true returnt also tot, wenn energy == 0 ist, sonst false also nicht tot
+    isDead() { 
         return this.energy == 0;
     }
 
 
     isHurt() {
-        let timepassed = new Date().getTime() - this.lastHit; //new date = neue zeit jetzt in millisec. MINUS lastHit (gespeicherte zeit vorher) / difference in millisec.
-        timepassed = timepassed / 1000; //differenz in secunden
-        return timepassed < 1; //heißt das man innerhalb der letzten 5 sec. getroffen wurde, dann wird true returnt wenn es stimmt sonst false
+        let timepassed = new Date().getTime() - this.lastHit;
+        timepassed = timepassed / 1000; 
+        return timepassed < 1;
     }
 
 
@@ -71,14 +71,10 @@ class MovableObject extends DrawableObject {
 
 
     playAnimation(image) {
-        let i = this.currentImage % image.length; //so siehts beim ersten mal aus i = 0 % 6 //  0/6 = 0, rest 0
-        // wenn i = 1  dann 1/ 6 = 0 rest 1 bei i = 5 dann 5/6 = 0 rest 5 und bei i = 6 ist  6 / 6 = 1 , rest 0
-        // im nächsten schritt hat / hätte i den wert 7  dann wird 7 / 6 geteilt und es ergibt 1, rest 1 , modulu hebt nur den rest
-        // auf also hat i nun wieder den wert 1 
-        // i = 0, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 5, 0,... es wird also immer zurückgesetzt wegen dem % modulo
-        let path = image[i]; // currentImage ist standart 0 definiert
+        let i = this.currentImage % image.length; 
+        let path = image[i];
         this.img = this.imageCache[path];
-        this.currentImage++; //currentImage kriegt hier den wert +1
+        this.currentImage++; 
     }
 
 
@@ -88,15 +84,15 @@ class MovableObject extends DrawableObject {
                 this.posY -= this.speedY;
                 this.speedY -= this.acceleration;
             }
-        }, 1000 / 25); //25 mal ausführen in 1 sec.
+        }, 1000 / 25); 
     }
 
 
     isAboveGround() {
-        if (this instanceof ThrowableObject) { //wenn es ein trowableobject ist dann returnt es true  und fällt immer weiter
+        if (this instanceof ThrowableObject) {
             return true;
         } else {
-            return this.posY < 180; //wenn posY kleiner als 180 ist bedeutet das das sich das objekt in der luft befindet
+            return this.posY < 180;
         }
     }
 
