@@ -49,12 +49,13 @@ class World {
 
     checkCollisions() {
         this.level.enemies.forEach((enemy) => { //für gegner eigene sachen einstellen wie playanimation
-            let lastHit = false; // Flag für den letzten Treffer
 
             this.throwableObjects.forEach((object) => {
-                if (!lastHit && object.isCollidingEnemy(enemy)) { //schaut ob die flasche schonmal getroffen hat
+                if (object.isCollidingEnemy(enemy) && !object.hasHitEnemy) { //schaut ob die flasche schonmal getroffen hat
                     console.log('Flasche trifft Gegner / objekt', enemy, object);
-                    lastHit = true; // Setze das Flag auf true, um anzuzeigen, dass der Treffer stattgefunden hat
+                    object.hasHitEnemy = true; // Setze das Attribut hashitenemy auf true
+
+                    
                     let enemyIndex = this.level.enemies.indexOf(enemy);
 
                     if (enemy instanceof Endboss) {
@@ -99,7 +100,7 @@ class World {
                 console.log('after collision energy from character:', this.character.energy);
             }
         });
-        
+
         this.level.clouds.forEach((cloud) => {
             if (this.character.isColliding(cloud)) {
                 if (cloud instanceof Coin) {

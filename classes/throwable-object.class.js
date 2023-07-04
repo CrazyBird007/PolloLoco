@@ -2,6 +2,7 @@ class ThrowableObject extends MovableObject {
     height = 60;
     width = 80;
     world;
+    hasHitEnemy = false;
 
     constructor(x, y) {
         super().loadImage('./img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png');

@@ -6,9 +6,6 @@ class MovableObject extends DrawableObject {
     offsetY = 0; //man könnte dem character beim springen offsetY geben
     energy = 1000;
     lastHit = 0;
-    moveInterval = null;
-    animationInterval = null;
-    // hasHit = false; // Neue Eigenschaft für den Berührungsstatus ob die flasche schonmal getroffen hat (grade ind er world iscolliding functions elber dirnnne)
 
 
 // offsetY jetzt verstanden, das könnte man z.b. dem charakter geben um dessen äußere werte anzupassen oder dem coin etc.
