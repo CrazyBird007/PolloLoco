@@ -138,7 +138,7 @@ class World {
                     object.hasHitEnemy = true;
                     let enemyIndex = this.level.enemies.indexOf(enemy);
                     if (enemy instanceof Endboss) {
-                        this.handleEndbossCollision(enemy, enemyIndex);
+                        this.handleEndbossCollision(enemy);
                     } else if (enemy instanceof EnemyChicken && !enemy.isDead() || enemy instanceof SmallEnemyChicken && !enemy.isDead()) {
                         this.handleNormalEnemyCollision(enemy, enemyIndex);
                     }
@@ -183,7 +183,7 @@ class World {
         });
     }
     
-    handleEndbossCollision(enemy, enemyIndex) {
+    handleEndbossCollision(enemy) {
         enemy.hit();
         console.log('bottle trifft Endboss Leben:', enemy.energy);
         if (enemy.isDead()) {
@@ -198,7 +198,6 @@ class World {
                 `;
             }, 1220);
         }
-        this.level.enemies.splice(enemyIndex, 1);
     }
     
     handleNormalEnemyCollision(enemy, enemyIndex) {
@@ -307,7 +306,7 @@ class World {
         }
         try { // es wird versucht die nächste zeile auszuführen, wenn alles gut ist geht es weiter, wenn nicht wird im catch gezeigt
             object.draw(this.ctx);
-            object.drawFrameBorder(this.ctx);
+            // object.drawFrameBorder(this.ctx); // malt die collisionsboxen um die characters und coins etc.
         } catch (e) { // dann wird hier der fehler gefangen und in den console.log angezeigt!
             console.warn('Error loading image', e); // zeigt den error in der konsole
             console.log('Could not load image:', object.img.src); // zeigt welche src also welches img das problem ist

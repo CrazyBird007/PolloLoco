@@ -4,7 +4,7 @@ class MovableObject extends DrawableObject {
     speedY = 0;
     acceleration = 3;
     offsetY = 0; //man könnte dem character beim springen offsetY geben
-    energy = 1000;
+    energy = 100;
     lastHit = 0;
 
 
