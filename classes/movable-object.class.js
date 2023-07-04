@@ -8,10 +8,10 @@ class MovableObject extends DrawableObject {
     lastHit = 0;
 
 
-// offsetY jetzt verstanden, das könnte man z.b. dem charakter geben um dessen äußere werte anzupassen oder dem coin etc.
+    // offsetY jetzt verstanden, das könnte man z.b. dem charakter geben um dessen äußere werte anzupassen oder dem coin etc.
     //neuer isColliding code ; diese positionen sind für die characterabgrenzung wichtig und können ggf. geändert werden, 
     //schau dazu in der drawframeborder function nach:       // this.posX + 47, this.posY + 100, this.width - 90, this.height - 112
-    isColliding(obj) { //hier gibt es noch eine offsetY, wieso?! für die höhe? gibts nun global und beim character jump ändert sie sich da
+    isColliding(obj) { //character anpassungen //offsetY gibts nun global und beim character jump ändert sie sich da
         return (this.posX + 47 + this.width - 90) >= obj.posX &&
             this.posX + 47 <= (obj.posX + obj.width) &&
             (this.posY + 100 + this.offsetY + this.height - 112) >= obj.posY &&

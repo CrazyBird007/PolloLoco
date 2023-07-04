@@ -49,19 +49,14 @@ class World {
 
     checkCollisions() {
         this.level.enemies.forEach((enemy) => { //für gegner eigene sachen einstellen wie playanimation
-
             this.throwableObjects.forEach((object) => {
                 if (object.isCollidingEnemy(enemy) && !object.hasHitEnemy) { //schaut ob die flasche schonmal getroffen hat
                     console.log('Flasche trifft Gegner / objekt', enemy, object);
                     object.hasHitEnemy = true; // Setze das Attribut hashitenemy auf true
-
-                    
                     let enemyIndex = this.level.enemies.indexOf(enemy);
-
                     if (enemy instanceof Endboss) {
                         enemy.hit();
                         console.log('bottle trifft Endboss Leben:', enemy.energy);
-
                         if (enemy.isDead()) {
                             enemy.playAnimation(enemy.IMAGES_DEAD);
                             setTimeout(() => {
@@ -78,15 +73,13 @@ class World {
                         enemy.hit();
                         console.log('bottle trifft normalen Gegner Leben:', enemy.energy);
                         if (enemy.isDead()) {
-                            this.stopAnimation();
                             enemy.playAnimation(enemy.IMAGES_DEAD);
-                            
-                            setTimeout(() => {
-                            this.level.enemies.splice(enemyIndex, 1);
-                        }, 1500);
-                        }
-                    } 
 
+                            setTimeout(() => {
+                                this.level.enemies.splice(enemyIndex, 1);
+                            }, 1500);
+                        }
+                    }
                     console.log('enemyindex:', enemyIndex);
                 }
             });
@@ -94,10 +87,20 @@ class World {
 
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
-                console.log('Character collision with:', enemy); //zeigt an wo man mit welchem gegner collidiert!
-                this.character.hit();
-                this.statusBar.setPercentage(this.character.energy);
-                console.log('after collision energy from character:', this.character.energy);
+                let enemyIndex2 = this.level.enemies.indexOf(enemy);
+                if (this.character.isAboveGround()) {
+                    enemy.hit();
+                    console.log('springe auf gegner !! leben:', enemy.energy);
+                    if (enemy.isDead()) {
+                        enemy.playAnimation(enemy.IMAGES_DEAD);
+                        this.level.enemies.splice(enemyIndex2, 1);
+                    }
+                } else {
+                    console.log('Character collision with:', enemy);
+                    this.character.hit();
+                    this.statusBar.setPercentage(this.character.energy);
+                    console.log('after collision energy from character:', this.character.energy);
+                }
             }
         });
 
@@ -109,23 +112,17 @@ class World {
                     this.statusBarCoin.updateCoinStatusBar();
                     this.statusBarCoin.countSessionCoins++;
                     console.log('session coins:', this.statusBarCoin.countSessionCoins);
-                    // Weitere Aktionen für das Aufnehmen der Münze ausführen
                 } else if (cloud instanceof Bottle) {
                     console.log('Character collided with bottle:', cloud);
                     this.removeBottle(cloud);
                     this.statusBarBottle.updateBottleStatusBar();
                     this.collectedBottles++;
                     console.log('current bottles:', this.collectedBottles);
-                    // Weitere Aktionen für das Aufnehmen der Flasche ausführen
                 }
             }
         });
     }
 
-    stopAnimation() {
-        clearInterval(this.level.enemies.moveInterval);
-        clearInterval(this.level.enemies.animationInterval);
-      }
 
     removeCoin(coin) {
         // Entferne das Coin-Objekt aus dem Spiel
