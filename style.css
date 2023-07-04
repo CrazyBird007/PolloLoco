@@ -7,7 +7,7 @@ body {
     display: flex;
     align-items: center;
     flex-direction: column;
-    background-image: url('./img/background4.jpg');
+    background-image: url('./img/background5.jpg');
     background-position: center;
     background-size: cover;
     font-family: 'zabras', Arial, Helvetica, sans-serif;
@@ -23,8 +23,13 @@ canvas {
 h1 {
     font-size: 60px;
     letter-spacing: 4px;
-    text-shadow: 2px 2px 2px rgba(94, 84, 84, 0.499);
-}   
+    color: rgb(255, 132, 0);
+    /* text-shadow: 6px 5px 5px rgba(0, 0, 0); */
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 1),
+        -2px -2px 2px rgba(0, 0, 0, 1),
+        2px -2px 2px rgba(0, 0, 0, 1),
+        -2px 2px 2px rgba(0, 0, 0, 1);
+}
 
 #startButton {
     font-family: 'zabras', Arial, Helvetica, sans-serif;
@@ -59,6 +64,7 @@ h1 {
     right: 0;
     left: 0;
 }
+
 .mobileButtons img {
     height: 30px;
     width: 30px;
@@ -99,7 +105,6 @@ h1 {
 
 .helpButton {
     cursor: pointer;
-    /* position: absolute; */
     background-color: green;
     display: flex;
     justify-content: center;
@@ -107,10 +112,6 @@ h1 {
     height: 50px;
     width: 50px;
     border-radius: 50px;
-    /* top: 79%;
-    bottom: 0;
-    right: 0;
-    left: 77%; */
 }
 
 .helpButton img {
@@ -228,8 +229,9 @@ h1 {
 
 @font-face {
     font-family: 'zabras';
-    src: url('./fonts/zabars.ttf') format('truetype'); /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
-} 
+    src: url('./fonts/zabars.ttf') format('truetype');
+    /* Chrome 4+, Firefox 3.5, Opera 10+, Safari 3—5 */
+}
 
 /* smarthphose adjustments */
 @media only screen and (max-width: 853px) {
@@ -248,13 +250,34 @@ h1 {
     canvas {
         height: 100vh;
     }
+
     #headline {
         display: none;
     }
+
     #fullscreenButton {
         display: none;
     }
+
     #winGameInfos {
         font-size: 16px;
+    }
+
+    #buttonBox {
+        display: none;
+    }
+
+    .popupContent {
+        background-color: #efb81f;
+        position: absolute;
+        font-size: 15px;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        transform: translate(0, 0);
+        padding: 0;
+        border-radius: 0;
+        letter-spacing: 1px;
     }
 }

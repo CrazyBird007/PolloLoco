@@ -90,6 +90,18 @@ function buttonTouchEvents() {
         e.preventDefault();
         keyboard.F = false;
     });
+
+    // andere buttons
+    document.getElementById('startButton').addEventListener('touchstart', (e) => { //startet das spiel
+        e.preventDefault();
+        initLevel1();
+        init();
+    });
+
+    document.getElementById('helpButtonSmall').addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        showPopup();
+    });
 }
 
 
