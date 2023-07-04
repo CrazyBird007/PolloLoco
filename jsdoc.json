@@ -1,0 +1,28 @@
+{
+    "source": {
+        "include": [
+            "./js/game.js",
+            "./levels/level1.js",
+            "./classes/background-static.class.js",
+            "./classes/bottle.class.js",
+            "./classes/character.class.js",
+            "./classes/cloud.class.js",
+            "./classes/coin.class.js",
+            "./classes/drawable-object.class.js",
+            "./classes/endboss.class.js",
+            "./classes/enemy-chicken.class.js",
+            "./classes/keyboard.class.js",
+            "./classes/level.class.js",
+            "./classes/movable-object.class.js",
+            "./classes/small-enemy-chicken.class.js",
+            "./classes/status-bar-bottle.class.js",
+            "./classes/status-bar-coin.class.js",
+            "./classes/status-bar.class.js",
+            "./classes/throwable-object.class.js",
+            "./classes/world.class.js"
+        ]
+    },
+    "opts": {
+        "destionation": "./out"
+    }
+}

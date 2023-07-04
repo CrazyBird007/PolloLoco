@@ -1,27 +1,50 @@
-let canvas;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: game.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: game.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>let canvas;
 let world;
 let keyboard = new Keyboard();
 
 
 /**
- * This function initializes the canvas for drawing and the game world with various game-related information.
+ * This function is init the canvas to draw on and the world with a lot infos about the game
  * 
  */
 function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
     buttonTouchEvents();
-    console.log('My world is:', world.character, world.enemies, world.backgroundObjects, world.clouds); 
+    console.log('My world is:', world.character, world.enemies, world.backgroundObjects, world.clouds);
 }
 
 
-/**
- * This function sets the `key` variable to true based on the keyboard event.
- * 
- * @param {Event} e - The keyboard event object.
- */
 document.onkeydown = function (e) {
-    // console.log('key:', e);  // Logs the key being pressed, useful for identifying key values
+    // console.log('key:', e);  //loggt aus, welche taste man drückt, so kann man herausfinden welche keys sie haben
     if (e.key === "ArrowRight" || e.key === "d") {
         keyboard.RIGHT = true;
     }
@@ -40,11 +63,6 @@ document.onkeydown = function (e) {
 };
 
 
-/**
- * This function handles the key release event and updates the `keyboard` object accordingly.
- * 
- * @param {Event} e - The keyboard event object.
- */
 document.onkeyup = function (e) {
     if (e.key === "ArrowRight" || e.key === "d") {
         keyboard.RIGHT = false;
@@ -64,10 +82,6 @@ document.onkeyup = function (e) {
 };
 
 
-/**
- * This function sets up touch event listeners for various buttons in the mobile game UI and updates the `keyboard` object accordingly.
- * 
- */
 function buttonTouchEvents() {
     document.getElementById('leftButton').addEventListener('touchstart', (e) => {
         e.preventDefault();
@@ -122,10 +136,7 @@ function buttonTouchEvents() {
 }
 
 
-/**
- * This function enters fullscreen mode for the game canvas and adjusts its size to fill the entire viewport.
- * 
- */
+// starts fullscreen with button and leave fullscreen with press Escape
 function fullscreen() {
     let canvasFullscreen = document.getElementById('canvas');
     let fullscreen = document.getElementById('fullscreen');
@@ -135,11 +146,6 @@ function fullscreen() {
 }
 
 
-/**
- * Requests fullscreen mode for the specified element, using different methods based on browser compatibility.
- *
- * @param {HTMLElement} element - The element to enter fullscreen mode.
- */
 function enterFullscreen(element) {
     if (element.requestFullscreen) {
         element.requestFullscreen();
@@ -151,59 +157,56 @@ function enterFullscreen(element) {
 }
 
 
-/**
- * Registers event listeners for fullscreen change events across different browser vendors.
- * The specified handler function will be called whenever a fullscreen change event occurs.
- *
- * @param {Function} handleFullscreenChange - The handler function to be called on fullscreen change.
- */
 document.addEventListener('fullscreenchange', handleFullscreenChange);
 document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
 document.addEventListener('mozfullscreenchange', handleFullscreenChange);
 document.addEventListener('MSFullscreenChange', handleFullscreenChange);
 
 
-/**
- * Handles the fullscreen change event by adjusting the size of the game canvas back to its original dimensions
- * if the fullscreen mode is exited.
- * 
- */
 function handleFullscreenChange() {
     let canvasFullscreen = document.getElementById('canvas');
     let originalCanvasWidth = 853;
     let originalCanvasHeight = 480;
-    if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.mozFullScreenElement && !document.msFullscreenElement) {
+    if (!document.fullscreenElement &amp;&amp; !document.webkitFullscreenElement &amp;&amp; !document.mozFullScreenElement &amp;&amp; !document.msFullscreenElement) {
         canvasFullscreen.style.width = originalCanvasWidth + 'px';
         canvasFullscreen.style.height = originalCanvasHeight + 'px';
     }
 }
 
 
-/**
- * Shows the help window popup by setting its display style to "block".
- * 
- */
+// popup for help window
 function showPopup() {
     let popup = document.getElementById("popup");
     popup.style.display = "block";
 }
 
-
-/**
- * Closes the help window popup by setting its display style to "none".
- * 
- */
 function closePopup() {
     let popup = document.getElementById("popup");
     popup.style.display = "none";
 }
 
-
-/**
- * Prevents the closing of the popup content when clicked on.
- * 
- * @param {Event} event - The event object.
- */
 function doNotClose(event) {
     event.stopPropagation();
-}
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#init">init</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Tue Jul 04 2023 15:58:44 GMT+0200 (Mitteleuropäische Sommerzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

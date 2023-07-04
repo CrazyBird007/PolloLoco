@@ -147,7 +147,6 @@ class Character extends MovableObject {
             }
         }, 102);
     }
-
     
     moveCharacter() {
         if (this.world.keyboard.RIGHT && this.posX < this.world.level.level_end_x) {
@@ -163,11 +162,9 @@ class Character extends MovableObject {
         }
     }
     
-
     moveCamera() {
         this.world.camera_x = -this.posX + 150;
     }
-
     
     handleCharacterDead() {
         this.playAnimation(this.IMAGES_DEAD);
@@ -181,7 +178,6 @@ class Character extends MovableObject {
             `;
         }, 1220);
     }
-    
     
     handleIdleAnimation() {
         const currentTime = new Date();
