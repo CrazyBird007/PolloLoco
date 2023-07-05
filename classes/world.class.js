@@ -213,7 +213,7 @@ class World {
             enemy.playAnimation(enemy.IMAGES_DEAD);
             setTimeout(() => {
                 this.level.enemies.splice(enemyIndex, 1);
-            }, 1500);
+            }, 3000);
         }
     }
 
@@ -223,7 +223,9 @@ class World {
         console.log('springe auf gegner !! leben:', enemy.energy);
         if (enemy.isDead()) {
             enemy.playAnimation(enemy.IMAGES_DEAD);
-            this.level.enemies.splice(enemyIndex, 1);
+            setTimeout(() => {
+                this.level.enemies.splice(enemyIndex, 1);
+            }, 3000);
         }
     }
 

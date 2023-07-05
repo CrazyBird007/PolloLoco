@@ -15,7 +15,7 @@ class EnemyChicken extends MovableObject {
 
     constructor() {
         super().loadImage('./img/3_enemies_chicken/chicken_normal/1_walk/1_w.png');
-        this.posX = 300 + Math.random() * 10000; 
+        this.posX = 300 + Math.random() * 10000;
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_DEAD);
         this.animate();
@@ -25,14 +25,18 @@ class EnemyChicken extends MovableObject {
 
     animate() {
         this.moveInterval = setInterval(() => {
-            this.moveLeft();
-        }, 1000 / 144); 
+            if (this.energy > 0) {
+                this.moveLeft();
+            }
+        }, 1000 / 144);
 
         this.animationInterval = setInterval(() => {
-            this.playAnimation(this.IMAGES_WALKING); 
+            if (this.energy > 0) {
+                this.playAnimation(this.IMAGES_WALKING);
+            }
         }, 280);
     }
-    
+
 
     hit() {
         this.energy -= 100;
