@@ -153,7 +153,7 @@ class World {
     
     checkCharacterEnemyCollisions() {
         this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy)) {
+            if (!enemy.isDead() && this.character.isColliding(enemy)) {
                 let enemyIndex2 = this.level.enemies.indexOf(enemy);
                 if (this.character.isAboveGround()) {
                     if (enemy instanceof EnemyChicken) {

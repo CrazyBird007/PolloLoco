@@ -22,17 +22,21 @@ class SmallEnemyChicken extends MovableObject {
         this.speed = 0.1 + Math.random() * 0.1;
     }
 
-    
+
     animate() {
         setInterval(() => {
-            this.moveLeft();
-        }, 1000 / 144); 
+            if (this.energy > 0) {
+                this.moveLeft();
+            }
+        }, 1000 / 144);
         setInterval(() => {
-            this.playAnimation(this.IMAGES_WALKING); 
+            if (this.energy > 0) {
+                this.playAnimation(this.IMAGES_WALKING);
+            }
         }, 280);
     }
 
-    
+
     hit() {
         this.energy -= 100;
         if (this.energy < 0) {

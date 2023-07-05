@@ -24,13 +24,13 @@ class EnemyChicken extends MovableObject {
 
 
     animate() {
-        this.moveInterval = setInterval(() => {
+        setInterval(() => {
             if (this.energy > 0) {
                 this.moveLeft();
             }
         }, 1000 / 144);
 
-        this.animationInterval = setInterval(() => {
+        setInterval(() => {
             if (this.energy > 0) {
                 this.playAnimation(this.IMAGES_WALKING);
             }
