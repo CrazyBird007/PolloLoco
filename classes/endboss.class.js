@@ -46,6 +46,8 @@ class Endboss extends MovableObject {
         this.loadImages(this.IMAGES_ALERT);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HURT);
+        this.loadImages(this.IMAGES_ATTACK);
+        this.loadImages(this.IMAGES_WALK);
         this.animate();
         if (randomSpawn) {
             this.posX = -300 + Math.random() * 2300;

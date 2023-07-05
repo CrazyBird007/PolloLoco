@@ -204,6 +204,9 @@ class World {
             }, 1500);
         } else {
             enemy.playAnimation(enemy.IMAGES_HURT);
+            enemy.intervalId = setInterval(() => {
+                enemy.posX -= 2; 
+            }, 100);
         }
     }
 
