@@ -201,7 +201,9 @@ class World {
                 document.getElementById('winGameInfos').innerHTML = /*html*/`
                     Gewonnen! Du hast ${this.statusBarCoin.countSessionCoins} Punkte erreicht, Glückwunsch!
                 `;
-            }, 1220);
+            }, 1500);
+        } else {
+            enemy.playAnimation(enemy.IMAGES_HURT);
         }
     }
 

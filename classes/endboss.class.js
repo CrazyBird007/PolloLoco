@@ -41,13 +41,13 @@ class Endboss extends MovableObject {
     ];
 
 
-    constructor(posX, posY, randomSpawn = false) { 
+    constructor(posX, posY, randomSpawn = false) {
         super().loadImage(this.IMAGES_ALERT[0]);
         this.loadImages(this.IMAGES_ALERT);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HURT);
         this.animate();
-        if (randomSpawn) { 
+        if (randomSpawn) {
             this.posX = -300 + Math.random() * 2300;
             this.posY = posY;
         } else {
@@ -58,12 +58,15 @@ class Endboss extends MovableObject {
 
 
     animate() {
-        // this.moveLeft(); //so könnte sich der endgegner bewegen
         setInterval(() => {
-            this.playAnimation(this.IMAGES_ALERT);
+            if (this.energy > 0) {
+                this.playAnimation(this.IMAGES_ALERT);
+            } else if (this.energy === 0) {
+                this.playAnimation(this.IMAGES_DEAD)
+            }
         }, 280);
     }
-    
+
 
     hit() {
         this.energy -= 34;
