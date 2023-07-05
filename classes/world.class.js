@@ -205,7 +205,10 @@ class World {
         } else {
             enemy.playAnimation(enemy.IMAGES_HURT);
             enemy.intervalId = setInterval(() => {
+                if (enemy.energy > 0) {
+                enemy.playAnimation(enemy.IMAGES_WALK);
                 enemy.posX -= 2; 
+                }
             }, 100);
         }
     }
