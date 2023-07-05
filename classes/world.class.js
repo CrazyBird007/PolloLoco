@@ -11,6 +11,7 @@ class World {
     throwableObjects = [];
     collectedBottles = 0;
     bottle;
+    lastThrowTime = 0; 
 
 
     constructor(canvas, keyboard) {
@@ -38,13 +39,17 @@ class World {
 
     checkThrowObjects() {
         if (this.keyboard.F && this.collectedBottles > 0) {
+          const currentTime = Date.now();
+          if (currentTime - this.lastThrowTime >= 1000) { 
             this.bottle = new ThrowableObject(this.character.posX + 75, this.character.posY + 130);
             this.throwableObjects.push(this.bottle);
             this.collectedBottles--;
             this.statusBarBottle.updateBottleStatusBarWhenThrow();
             console.log('current bottles:', this.collectedBottles);
+            this.lastThrowTime = currentTime; 
+          }
         }
-    }
+      }
 
 
     checkCollisions() {
@@ -132,7 +137,7 @@ class World {
             enemy.intervalId = setInterval(() => {
                 if (enemy.energy > 0) {
                     enemy.playAnimation(enemy.IMAGES_WALK);
-                    enemy.posX -= 2;
+                    enemy.posX -= 5;
                 }
             }, 100);
         }
