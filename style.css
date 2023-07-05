@@ -36,7 +36,7 @@ h1 {
     width: 100px;
     height: 50px;
     border-radius: 10px;
-    background-color: rgba(237, 84, 18, 0.812);
+    background-color: rgb(255, 132, 0);
     cursor: pointer;
     font-size: 30px;
     border: none;
@@ -105,7 +105,7 @@ h1 {
 
 .helpButton {
     cursor: pointer;
-    background-color: green;
+    background-color: rgb(255, 132, 0);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -136,7 +136,7 @@ h1 {
 }
 
 .popupContent {
-    background-color: #efb81f;
+    background-color: rgb(255, 132, 0);
     position: absolute;
     font-size: 30px;
     top: 50%;
@@ -175,7 +175,7 @@ h1 {
     background-size: cover;
     position: absolute;
     border-radius: 10px;
-    background-color: rgb(184, 243, 23);
+    background-color: rgb(255, 132, 0);
     justify-content: center;
     align-items: center;
     font-size: 30px;
@@ -194,7 +194,7 @@ h1 {
     width: 100px;
     height: 50px;
     border-radius: 10px;
-    background-color: rgba(237, 84, 18, 0.812);
+    background-color: rgb(255, 132, 0);
     cursor: pointer;
     font-size: 30px;
     border: none;

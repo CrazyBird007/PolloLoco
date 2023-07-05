@@ -32,7 +32,7 @@ class World {
         setInterval(() => {
             this.checkThrowObjects();
             this.checkCollisions();
-        }, 250);
+        }, 100);
     }
 
 
@@ -40,8 +40,8 @@ class World {
         if (this.keyboard.F && this.collectedBottles > 0) {
             this.bottle = new ThrowableObject(this.character.posX + 75, this.character.posY + 130);
             this.throwableObjects.push(this.bottle);
-            this.collectedBottles--; 
-            this.statusBarBottle.updateBottleStatusBarWhenThrow(); 
+            this.collectedBottles--;
+            this.statusBarBottle.updateBottleStatusBarWhenThrow();
             console.log('current bottles:', this.collectedBottles);
         }
     }
@@ -53,8 +53,8 @@ class World {
         this.checkCharacterCloudCollisions();
     }
 
-    
-   checkThrowableObjectCollisions() {
+
+    checkThrowableObjectCollisions() {
         this.level.enemies.forEach((enemy) => {
             let enemyIndex = this.level.enemies.indexOf(enemy);
             this.throwableObjects.forEach((object) => {
@@ -75,13 +75,13 @@ class World {
         });
     }
 
-    
+
     checkCharacterEnemyCollisions() {
         this.level.enemies.forEach((enemy) => {
             if (!enemy.isDead() && this.character.isColliding(enemy)) {
                 let enemyIndex2 = this.level.enemies.indexOf(enemy);
                 if (this.character.isAboveGround()) {
-                    if (enemy instanceof EnemyChicken && !enemy.isDead()) {
+                    if (enemy instanceof EnemyChicken && !enemy.isDead() || enemy instanceof SmallEnemyChicken && !enemy.isDead()) {
                         this.handleCharacterJumpCollision(enemy, enemyIndex2);
                     } else {
                         console.log('Character collision with:', enemy);
@@ -99,7 +99,7 @@ class World {
         });
     }
 
-    
+
     checkCharacterCloudCollisions() {
         this.level.clouds.forEach((cloud) => {
             if (this.character.isColliding(cloud)) {
@@ -112,7 +112,7 @@ class World {
         });
     }
 
-    
+
     handleEndbossCollision(enemy) {
         enemy.hit();
         console.log('bottle trifft Endboss Leben:', enemy.energy);
@@ -131,38 +131,37 @@ class World {
             enemy.playAnimation(enemy.IMAGES_HURT);
             enemy.intervalId = setInterval(() => {
                 if (enemy.energy > 0) {
-                enemy.playAnimation(enemy.IMAGES_WALK);
-                enemy.posX -= 2; 
+                    enemy.playAnimation(enemy.IMAGES_WALK);
+                    enemy.posX -= 2;
                 }
             }, 100);
         }
     }
 
-    
     handleNormalEnemyCollision(enemy, enemyIndex) {
         enemy.hit();
         console.log('bottle trifft normalen Gegner Leben:', enemy.energy);
         if (enemy.isDead()) {
             enemy.playAnimation(enemy.IMAGES_DEAD);
             setTimeout(() => {
-                this.level.enemies.splice(enemyIndex, 1);
-            }, 500);
+                this.level.enemies.splice(this.level.enemies.indexOf(enemy), 1);
+            }, 3000);
         }
     }
 
-    
+
     handleCharacterJumpCollision(enemy, enemyIndex) {
         enemy.hit();
         console.log('springe auf gegner !! leben:', enemy.energy);
         if (enemy.isDead()) {
             enemy.playAnimation(enemy.IMAGES_DEAD);
             setTimeout(() => {
-                this.level.enemies.splice(enemyIndex, 1);
-            }, 500);
+                this.level.enemies.splice(this.level.enemies.indexOf(enemy), 1);
+            }, 3000);
         }
     }
 
-    
+
     handleCoinCollision(coin) {
         console.log('Character collided with coin:', coin);
         this.removeCoin(coin);
@@ -170,7 +169,7 @@ class World {
         this.statusBarCoin.countSessionCoins++;
         console.log('session coins:', this.statusBarCoin.countSessionCoins);
     }
-    
+
 
     handleBottleCollision(bottle) {
         console.log('Character collided with bottle:', bottle);
@@ -179,7 +178,7 @@ class World {
         this.collectedBottles++;
         console.log('current bottles:', this.collectedBottles);
     }
-    
+
 
     removeCoin(coin) {
         let coinIndex = this.level.clouds.indexOf(coin);
@@ -198,7 +197,7 @@ class World {
 
 
     draw() {
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); 
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.translate(this.camera_x, 0); // verschiebt die kamera x nach links , y wird um 0 verschoben
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addObjectsToMap(this.level.clouds);
@@ -222,22 +221,22 @@ class World {
     }
 
 
-    addObjectsToMap(objects) { 
-        objects.forEach(obj => {  
+    addObjectsToMap(objects) {
+        objects.forEach(obj => {
             this.addToMap(obj);
         });
     }
 
 
-    addToMap(object) { 
-        if (object.otherDirection) { 
+    addToMap(object) {
+        if (object.otherDirection) {
             this.saveAndMirrorImage(object);
         }
-        try { 
+        try {
             object.draw(this.ctx);
             // object.drawFrameBorder(this.ctx); // malt die collisionsboxen um die characters und coins etc.
-        } catch (e) { 
-            console.warn('Error loading image', e); 
+        } catch (e) {
+            console.warn('Error loading image', e);
             console.log('Could not load image:', object.img.src);
         }
         if (object.otherDirection) {
@@ -248,14 +247,14 @@ class World {
 
     saveAndMirrorImage(object) {
         this.ctx.save();
-        this.ctx.translate(object.width, 0); 
-        this.ctx.scale(-1, 1); 
+        this.ctx.translate(object.width, 0);
+        this.ctx.scale(-1, 1);
         object.posX = object.posX * -1;
     }
 
 
     restoreAndMirrorImageBack(object) {
-        object.posX = object.posX * -1; 
+        object.posX = object.posX * -1;
         this.ctx.restore();
     }
 }

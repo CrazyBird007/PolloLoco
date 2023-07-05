@@ -38,6 +38,13 @@ class MovableObject extends DrawableObject {
             (this.posY + this.offsetY) <= (obj.posY + obj.height);
     }
 
+    // isCollidingEnemy(obj) { // mit character anpassungen... klappt aber auch nciht bessser wohl
+    //     return (this.posX + this.width) >= obj.posX + 47 &&
+    //         this.posX <= (obj.posX + 47 + obj.width - 90) &&
+    //         (this.posY + this.offsetY + this.height) >= obj.posY + 100 &&
+    //         (this.posY + this.offsetY) <= (obj.posY + 100 + obj.height - 112);
+    // }
+
 
     hit() {
         this.energy -= 10;
