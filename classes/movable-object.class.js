@@ -6,6 +6,7 @@ class MovableObject extends DrawableObject {
     offsetY = 0; 
     energy = 100;
     lastHit = 0;
+    enemyIndexSave;
 
 
     // offsetY jetzt verstanden, das könnte man z.b. dem charakter geben um dessen äußere werte anzupassen oder dem coin etc.

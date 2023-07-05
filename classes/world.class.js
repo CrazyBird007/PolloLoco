@@ -47,84 +47,6 @@ class World {
     }
 
 
-    // die nicht ausgelagerte variante von checkcollisions()
-    // checkCollisions() {
-    //     this.level.enemies.forEach((enemy) => { //für gegner eigene sachen einstellen wie playanimation
-    //         this.throwableObjects.forEach((object) => {
-    //             if (object.isCollidingEnemy(enemy) && !object.hasHitEnemy) { //schaut ob die flasche schonmal getroffen hat
-    //                 console.log('Flasche trifft Gegner / objekt', enemy, object);
-    //                 object.hasHitEnemy = true; // Setze das Attribut hashitenemy auf true
-    //                 let enemyIndex = this.level.enemies.indexOf(enemy);
-    //                 if (enemy instanceof Endboss) {
-    //                     enemy.hit();
-    //                     console.log('bottle trifft Endboss Leben:', enemy.energy);
-    //                     if (enemy.isDead()) {
-    //                         enemy.playAnimation(enemy.IMAGES_DEAD);
-    //                         setTimeout(() => {
-    //                             document.getElementById('looseGame').classList.remove('d-none'); //hier muss noch der win -screen angezeigt werden!!!
-    //                             for (let i = 1; i < 9999; i++) window.clearInterval(i); //stoppt alle intervalle 
-    //                             document.getElementById('startButton').classList.remove('d-none');
-    //                             document.getElementById('winGameInfos').classList.add('d-flex');
-    //                             document.getElementById('winGameInfos').innerHTML = /*html*/`
-    //                                 Gewonnen! Du hast ${this.statusBarCoin.countSessionCoins} Punkte erreicht, Glückwunsch!
-    //                             `;
-    //                         }, 1220);
-    //                     }
-    //                 } else if (enemy instanceof EnemyChicken && !enemy.isDead() || enemy instanceof SmallEnemyChicken && !enemy.isDead()) {
-    //                     enemy.hit();
-    //                     console.log('bottle trifft normalen Gegner Leben:', enemy.energy);
-    //                     if (enemy.isDead()) {
-    //                         enemy.playAnimation(enemy.IMAGES_DEAD);
-
-    //                         setTimeout(() => {
-    //                             this.level.enemies.splice(enemyIndex, 1);
-    //                         }, 1500);
-    //                     }
-    //                 }
-    //                 console.log('enemyindex:', enemyIndex);
-    //             }
-    //         });
-    //     });
-
-    //     this.level.enemies.forEach((enemy) => {
-    //         if (this.character.isColliding(enemy)) {
-    //             let enemyIndex2 = this.level.enemies.indexOf(enemy);
-    //             if (this.character.isAboveGround()) {
-    //                 enemy.hit();
-    //                 console.log('springe auf gegner !! leben:', enemy.energy);
-    //                 if (enemy.isDead()) {
-    //                     enemy.playAnimation(enemy.IMAGES_DEAD);
-    //                     this.level.enemies.splice(enemyIndex2, 1);
-    //                 }
-    //             } else {
-    //                 console.log('Character collision with:', enemy);
-    //                 this.character.hit();
-    //                 this.statusBar.setPercentage(this.character.energy);
-    //                 console.log('after collision energy from character:', this.character.energy);
-    //             }
-    //         }
-    //     });
-
-    //     this.level.clouds.forEach((cloud) => {
-    //         if (this.character.isColliding(cloud)) {
-    //             if (cloud instanceof Coin) {
-    //                 console.log('Character collided with coin:', cloud);
-    //                 this.removeCoin(cloud);
-    //                 this.statusBarCoin.updateCoinStatusBar();
-    //                 this.statusBarCoin.countSessionCoins++;
-    //                 console.log('session coins:', this.statusBarCoin.countSessionCoins);
-    //             } else if (cloud instanceof Bottle) {
-    //                 console.log('Character collided with bottle:', cloud);
-    //                 this.removeBottle(cloud);
-    //                 this.statusBarBottle.updateBottleStatusBar();
-    //                 this.collectedBottles++;
-    //                 console.log('current bottles:', this.collectedBottles);
-    //             }
-    //         }
-    //     });
-    // }
-
-
     checkCollisions() {
         this.checkThrowableObjectCollisions();
         this.checkCharacterEnemyCollisions();
@@ -132,16 +54,19 @@ class World {
     }
 
     
-    checkThrowableObjectCollisions() {
+   checkThrowableObjectCollisions() {
         this.level.enemies.forEach((enemy) => {
+            let enemyIndex = this.level.enemies.indexOf(enemy);
             this.throwableObjects.forEach((object) => {
+                if (enemy.isDead()) {
+                    return;
+                }
                 if (object.isCollidingEnemy(enemy) && !object.hasHitEnemy) {
                     console.log('Flasche trifft Gegner / objekt', enemy, object);
                     object.hasHitEnemy = true;
-                    let enemyIndex = this.level.enemies.indexOf(enemy);
                     if (enemy instanceof Endboss) {
                         this.handleEndbossCollision(enemy);
-                    } else if (enemy instanceof EnemyChicken && !enemy.isDead() || enemy instanceof SmallEnemyChicken && !enemy.isDead()) {
+                    } else if ((enemy instanceof EnemyChicken || enemy instanceof SmallEnemyChicken) && !enemy.isDead()) {
                         this.handleNormalEnemyCollision(enemy, enemyIndex);
                     }
                     console.log('enemyindex:', enemyIndex);
@@ -156,7 +81,7 @@ class World {
             if (!enemy.isDead() && this.character.isColliding(enemy)) {
                 let enemyIndex2 = this.level.enemies.indexOf(enemy);
                 if (this.character.isAboveGround()) {
-                    if (enemy instanceof EnemyChicken) {
+                    if (enemy instanceof EnemyChicken && !enemy.isDead()) {
                         this.handleCharacterJumpCollision(enemy, enemyIndex2);
                     } else {
                         console.log('Character collision with:', enemy);
@@ -221,7 +146,7 @@ class World {
             enemy.playAnimation(enemy.IMAGES_DEAD);
             setTimeout(() => {
                 this.level.enemies.splice(enemyIndex, 1);
-            }, 3000);
+            }, 500);
         }
     }
 
@@ -233,7 +158,7 @@ class World {
             enemy.playAnimation(enemy.IMAGES_DEAD);
             setTimeout(() => {
                 this.level.enemies.splice(enemyIndex, 1);
-            }, 3000);
+            }, 500);
         }
     }
 
