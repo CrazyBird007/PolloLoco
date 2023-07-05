@@ -149,9 +149,13 @@ class Character extends MovableObject {
     }
     
     moveCharacter() {
+        this.world.characterWalkSound.pause();
         if (this.world.keyboard.RIGHT && this.posX < this.world.level.level_end_x) {
             this.moveRight();
             this.otherDirection = false;
+            if (this.world.isSoundEnabled) {
+                this.world.characterWalkSound.play();
+            }
         }
         if (this.world.keyboard.LEFT && this.posX > -567) {
             this.moveLeft();

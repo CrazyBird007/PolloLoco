@@ -14,6 +14,16 @@ function init() {
     console.log('My world is:', world.character, world.enemies, world.backgroundObjects, world.clouds); 
 }
 
+function stopAllSoundsInWorld() {
+    // world.stopAllSounds();
+    world.isSoundEnabled = false;  
+    console.log('sound ausgestellt')
+}
+
+function enableAllSounds() {
+    world.isSoundEnabled = true;
+    console.log('sound angestellt')
+}
 
 /**
  * This function sets the `key` variable to true based on the keyboard event.

@@ -11,7 +11,14 @@ class World {
     throwableObjects = [];
     collectedBottles = 0;
     bottle;
-    lastThrowTime = 0; 
+    lastThrowTime = 0;
+    /**
+    * All sounds
+    * 
+    */
+    isSoundEnabled = true; 
+    coinCollectSound = new Audio('./audio/coin.mp3');
+    characterWalkSound = new Audio('./audio/character_walk.mp3');
 
 
     constructor(canvas, keyboard) {
@@ -23,6 +30,11 @@ class World {
         this.run();
     }
 
+
+    // stopAllSounds() {
+    //     this.characterWalkSound.pause();
+    //     this.characterWalkSound.currentTime = 0;
+    // }
 
     setWorld() {
         this.character.world = this;
@@ -39,17 +51,17 @@ class World {
 
     checkThrowObjects() {
         if (this.keyboard.F && this.collectedBottles > 0) {
-          const currentTime = Date.now();
-          if (currentTime - this.lastThrowTime >= 1000) { 
-            this.bottle = new ThrowableObject(this.character.posX + 75, this.character.posY + 130);
-            this.throwableObjects.push(this.bottle);
-            this.collectedBottles--;
-            this.statusBarBottle.updateBottleStatusBarWhenThrow();
-            console.log('current bottles:', this.collectedBottles);
-            this.lastThrowTime = currentTime; 
-          }
+            const currentTime = Date.now();
+            if (currentTime - this.lastThrowTime >= 1000) {
+                this.bottle = new ThrowableObject(this.character.posX + 75, this.character.posY + 130);
+                this.throwableObjects.push(this.bottle);
+                this.collectedBottles--;
+                this.statusBarBottle.updateBottleStatusBarWhenThrow();
+                console.log('current bottles:', this.collectedBottles);
+                this.lastThrowTime = currentTime;
+            }
         }
-      }
+    }
 
 
     checkCollisions() {
