@@ -12,6 +12,7 @@ class World {
     statusBar = new StatusBarHealth();
     statusBarBottle = new StatusBarBottle();
     statusBarCoin = new StatusBarCoin();
+    statusBarEndboss = new StatusBarEndboss();
     throwableObjects = [];
     collectedBottles = 0;
     bottle;
@@ -241,6 +242,7 @@ class World {
     */
     handleEndbossCollision(enemy) {
         enemy.hit();
+        this.statusBarEndboss.updateEndbossStatusBar();
         if (enemy.isDead()) {
             this.endbossDead = true;
             enemy.playAnimation(enemy.IMAGES_DEAD);
@@ -263,22 +265,31 @@ class World {
      */
     handleEndbossTimeout() {
         if (this.isSoundEnabled) {
-                this.endbossDeadSound.play();
-                this.backgroundSoundOn = false;
-                this.winSound.play();
-            }
+            this.endbossDeadSound.play();
+            this.backgroundSoundOn = false;
+            this.winSound.play();
+        }
+        this.handleEndbossWin();
+    }
+
+
+    /**
+     * This is a helpfunction to smaller the code
+     * 
+     */
+    handleEndbossWin() {
+        setTimeout(() => {
+            document.getElementById('looseGame').classList.remove('d-none');
+            for (let i = 1; i < 9999; i++) window.clearInterval(i);
+            document.getElementById('winGameInfos').classList.add('d-flex');
+            document.getElementById('winGameInfos').classList.remove('d-none');
+            document.getElementById('winGameInfos').innerHTML = /*html*/`
+                Gewonnen! Du hast ${this.statusBarCoin.countSessionCoins} Punkte erreicht, Glückwunsch!
+            `;
             setTimeout(() => {
-                document.getElementById('looseGame').classList.remove('d-none');
-                for (let i = 1; i < 9999; i++) window.clearInterval(i);
-                document.getElementById('winGameInfos').classList.add('d-flex');
-                document.getElementById('winGameInfos').classList.remove('d-none');
-                document.getElementById('winGameInfos').innerHTML = /*html*/`
-                    Gewonnen! Du hast ${this.statusBarCoin.countSessionCoins} Punkte erreicht, Glückwunsch!
-                `;
-                setTimeout(() => {
-                    document.getElementById('startButton').classList.remove('d-none');
-                }, 2000);
-            }, 1500);
+                document.getElementById('startButton').classList.remove('d-none');
+            }, 2000);
+        }, 1500);
     }
 
 
@@ -375,26 +386,27 @@ class World {
      */
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.ctx.translate(this.camera_x, 0); 
+        this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addObjectsToMap(this.level.clouds);
 
-        this.ctx.translate(-this.camera_x, 0); 
+        this.ctx.translate(-this.camera_x, 0);
         // ---------------------------- space for fixed objects---------------------------------------
-        this.addToMap(this.statusBar); 
-        this.addToMap(this.statusBarBottle); 
-        this.addToMap(this.statusBarCoin); 
+        this.addToMap(this.statusBar);
+        this.addToMap(this.statusBarBottle);
+        this.addToMap(this.statusBarCoin);
+        this.addToMap(this.statusBarEndboss);
         this.ctx.translate(this.camera_x, 0);
 
-        this.addToMap(this.character);   
+        this.addToMap(this.character);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.throwableObjects);
-        this.ctx.translate(-this.camera_x, 0); 
+        this.ctx.translate(-this.camera_x, 0);
 
-        let self = this;    
-        requestAnimationFrame(function () { 
-            self.draw();                    
-        });                                 
+        let self = this;
+        requestAnimationFrame(function () {
+            self.draw();
+        });
     }
 
 
