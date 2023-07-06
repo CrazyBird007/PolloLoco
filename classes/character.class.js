@@ -237,7 +237,7 @@ class Character extends MovableObject {
         this.world.characterLongIdleSound.pause();
         const currentTime = new Date();
         const idleTime = currentTime - this.lastActiveTime;
-        const startLongIdle = 4000;
+        const startLongIdle = 8000;
         if (idleTime >= startLongIdle) {
             this.playAnimation(this.IMAGES_LONG_IDLE);
             this.longIdleSound = true;
