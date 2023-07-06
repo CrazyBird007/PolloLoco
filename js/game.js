@@ -16,6 +16,10 @@ function init() {
 }
 
 
+/**
+ * This function stops all sounds and change the image of the sound button.
+ * 
+ */
 function stopAllSoundsInWorld() {
     if (soundOn) {
         world.isSoundEnabled = false;
@@ -137,12 +141,7 @@ function buttonTouchEvents() {
         showPopup();
     });
 
-    // document.getElementById('bigSoundImageSmall').addEventListener('touchstart', (e) => {
-    //     e.preventDefault();
-    //     stopAllSoundsInWorld();
-    //   });
-
-      document.getElementById('bigSoundImageSmall').addEventListener('click', (e) => {
+    document.getElementById('bigSoundImageSmall').addEventListener('click', (e) => {
         e.preventDefault();
         stopAllSoundsInWorld();
     });

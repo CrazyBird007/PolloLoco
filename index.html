@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>El Pollo Loco</title>
+    <title>El Pollo Loco - Minigame</title>
 
     <link rel="stylesheet" href="./style.css">
     <link rel="icon" href="./img/3_enemies_chicken/chicken_normal/1_walk/1_w.png">
@@ -32,15 +32,13 @@
 </head>
 
 <body>
-
     <h1 id="headline">El Pollo Loco</h1>
-    <div class="flex-direction-row">
+    <section class="flex-direction-row">
         <div id="fullscreen">
             <div class="mobileButtons">
                 <div class="mobileButtonsTop">
                     <img id="helpButtonSmall" src="./img/mobil_icons/icons8-hilfe-100.png" alt="">
                     <img id="bigSoundImageSmall" src="./img/mobil_icons/icons8-ton-100.png" alt="">
-                    <!-- <img id="" src="./img/mobil_icons/icons8-zuhause-100.png" alt=""> -->
                 </div>
                 <div class="mobileButtonsBottom">
                     <div>
@@ -62,9 +60,7 @@
             <div id="winGameInfos" class="d-none">
             </div>
             <button id="startButton" onclick="initLevel1(), init()">START</button>
-
         </div>
-
         <div id="turnMobile">
             Bitte drehe dein Gerät auf die Seite!
         </div>
@@ -77,7 +73,6 @@
             </div>
             <button id="fullscreenButton" class="fullscreen" onclick="fullscreen()">Fullscreen</button>
         </div>
-
         <div id="popup" class="popup" onclick="closePopup()">
             <div class="popupContent">
                 <h3>Willkommen bei El Pollo Loco </h3>
@@ -96,8 +91,7 @@
                     sei etwas sparsam, Salsa ist selten in der Wüste. Viel Spaß.</p>
             </div>
         </div>
-    </div>
-
+    </section>
 </body>
 
 </html>

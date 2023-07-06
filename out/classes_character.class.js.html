@@ -124,20 +124,29 @@ class Character extends MovableObject {
             this.moveCamera();
         }, 1000 / 60);
         setInterval(() => {
-            if (this.isDead()) {
-                this.handleCharacterDead();
-            } else if (this.isHurt()) {
-                this.playAnimation(this.IMAGES_HURT);
-            } else if (this.isAboveGround()) {
-                this.playAnimation(this.IMAGES_JUMPING);
-                this.lastActiveTime = new Date();
-            } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-                this.playAnimation(this.IMAGES_WALKING);
-                this.lastActiveTime = new Date();
-            } else {
-                this.handleIdleAnimation();
-            }
+            this.handleCharacterMoves();
         }, 102);
+    }
+
+
+    /**
+     * This is a help function to smaller the code
+     * 
+     */
+    handleCharacterMoves() {
+        if (this.isDead()) {
+            this.handleCharacterDead();
+        } else if (this.isHurt()) {
+            this.playAnimation(this.IMAGES_HURT);
+        } else if (this.isAboveGround()) {
+            this.playAnimation(this.IMAGES_JUMPING);
+            this.lastActiveTime = new Date();
+        } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+            this.playAnimation(this.IMAGES_WALKING);
+            this.lastActiveTime = new Date();
+        } else {
+            this.handleIdleAnimation();
+        }
     }
 
     /**
@@ -145,23 +154,54 @@ class Character extends MovableObject {
     */
     moveCharacter() {
         this.world.characterWalkSound.pause();
-        if (this.world.keyboard.RIGHT &amp;&amp; this.posX &lt; this.world.level.level_end_x) {
+        this.processMoveRight();
+        this.processMoveLeft();
+        this.processJump();
+    }
+
+
+    /**
+     * This is a help function to smaller the code
+     * 
+     */
+    processMoveRight() {
+        if (this.world.keyboard.RIGHT &amp;&amp; this.posX &lt; this.world.level.level_end_x &amp;&amp; !this.isDead() &amp;&amp; !this.world.endbossDead) {
             this.moveRight();
             this.otherDirection = false;
             this.longIdleSound = false;
             if (this.world.isSoundEnabled) {
                 this.world.characterWalkSound.play();
+            } else {
+                this.world.characterWalkSound.pause();
             }
         }
-        if (this.world.keyboard.LEFT &amp;&amp; this.posX > -567) {
+    }
+
+
+    /**
+     * This is a help function to smaller the code
+     * 
+     */
+    processMoveLeft() {
+        if (this.world.keyboard.LEFT &amp;&amp; this.posX > -567 &amp;&amp; !this.isDead() &amp;&amp; !this.world.endbossDead) {
             this.moveLeft();
             this.otherDirection = true;
             this.longIdleSound = false;
             if (this.world.isSoundEnabled) {
                 this.world.characterWalkSound.play();
+            } else {
+                this.world.characterWalkSound.pause();
             }
         }
-        if (this.world.keyboard.UP &amp;&amp; !this.isAboveGround()) {
+    }
+
+
+    /**
+     * This is a help function to smaller the code
+     * 
+     */
+    processJump() {
+        if (this.world.keyboard.UP &amp;&amp; !this.isAboveGround() &amp;&amp; !this.isDead() &amp;&amp; !this.world.endbossDead) {
             this.jump();
             this.longIdleSound = false;
             if (this.world.isSoundEnabled) {
@@ -186,21 +226,33 @@ class Character extends MovableObject {
      */
     handleCharacterDead() {
         this.playAnimation(this.IMAGES_DEAD);
-        if (this.world.isSoundEnabled) {
-            this.world.characterDeadSound.play();
-            this.world.characterLongIdleSound.pause();
-            this.world.backgroundSoundOn = false;
-            this.world.looseSound.play();
-        }
+        this.handleCharacterDeadSounds();
         setTimeout(() => {
             document.getElementById('looseGame').classList.remove('d-none');
             for (let i = 1; i &lt; 9999; i++) window.clearInterval(i);
-            document.getElementById('startButton').classList.remove('d-none');
             document.getElementById('winGameInfos').classList.add('d-flex');
             document.getElementById('winGameInfos').innerHTML = /*html*/`
                 Verloren! Du hast ${this.world.statusBarCoin.countSessionCoins} Punkte erreicht.
             `;
+            setTimeout(() => {
+                document.getElementById('startButton').classList.remove('d-none');
+            }, 5000);
         }, 1220);
+    }
+
+
+    /**
+    * This is a help function to smaller the code
+    * 
+    */
+    handleCharacterDeadSounds() {
+        if (this.world.isSoundEnabled) {
+            this.world.characterDeadSound.play();
+            this.world.characterLongIdleSound.pause();
+            this.world.characterWalkSound.pause();
+            this.world.backgroundSoundOn = false;
+            this.world.looseSound.play();
+        }
     }
 
 
@@ -243,13 +295,13 @@ class Character extends MovableObject {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="BackgroundObject.html">BackgroundObject</a></li><li><a href="Bottle.html">Bottle</a></li><li><a href="Character.html">Character</a></li><li><a href="Cloud.html">Cloud</a></li><li><a href="Coin.html">Coin</a></li><li><a href="DrawableObject.html">DrawableObject</a></li><li><a href="Endboss.html">Endboss</a></li><li><a href="EnemyChicken.html">EnemyChicken</a></li><li><a href="Keyboard.html">Keyboard</a></li><li><a href="Level.html">Level</a></li><li><a href="MovableObject.html">MovableObject</a></li><li><a href="SmallEnemyChicken.html">SmallEnemyChicken</a></li><li><a href="StatusBarBottle.html">StatusBarBottle</a></li><li><a href="StatusBarCoin.html">StatusBarCoin</a></li><li><a href="StatusBarHealth.html">StatusBarHealth</a></li><li><a href="ThrowableObject.html">ThrowableObject</a></li><li><a href="World.html">World</a></li></ul><h3>Global</h3><ul><li><a href="global.html#buttonTouchEvents">buttonTouchEvents</a></li><li><a href="global.html#closePopup">closePopup</a></li><li><a href="global.html#doNotClose">doNotClose</a></li><li><a href="global.html#enterFullscreen">enterFullscreen</a></li><li><a href="global.html#fullscreen">fullscreen</a></li><li><a href="global.html#handleFullscreenChange">handleFullscreenChange</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initLevel1">initLevel1</a></li><li><a href="global.html#level1">level1</a></li><li><a href="global.html#showPopup">showPopup</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="BackgroundObject.html">BackgroundObject</a></li><li><a href="Bottle.html">Bottle</a></li><li><a href="Character.html">Character</a></li><li><a href="Cloud.html">Cloud</a></li><li><a href="Coin.html">Coin</a></li><li><a href="DrawableObject.html">DrawableObject</a></li><li><a href="Endboss.html">Endboss</a></li><li><a href="EnemyChicken.html">EnemyChicken</a></li><li><a href="Keyboard.html">Keyboard</a></li><li><a href="Level.html">Level</a></li><li><a href="MovableObject.html">MovableObject</a></li><li><a href="SmallEnemyChicken.html">SmallEnemyChicken</a></li><li><a href="StatusBarBottle.html">StatusBarBottle</a></li><li><a href="StatusBarCoin.html">StatusBarCoin</a></li><li><a href="StatusBarHealth.html">StatusBarHealth</a></li><li><a href="ThrowableObject.html">ThrowableObject</a></li><li><a href="World.html">World</a></li></ul><h3>Global</h3><ul><li><a href="global.html#buttonTouchEvents">buttonTouchEvents</a></li><li><a href="global.html#closePopup">closePopup</a></li><li><a href="global.html#doNotClose">doNotClose</a></li><li><a href="global.html#enterFullscreen">enterFullscreen</a></li><li><a href="global.html#fullscreen">fullscreen</a></li><li><a href="global.html#handleFullscreenChange">handleFullscreenChange</a></li><li><a href="global.html#init">init</a></li><li><a href="global.html#initLevel1">initLevel1</a></li><li><a href="global.html#level1">level1</a></li><li><a href="global.html#showPopup">showPopup</a></li><li><a href="global.html#stopAllSoundsInWorld">stopAllSoundsInWorld</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Jul 06 2023 11:14:12 GMT+0200 (Mitteleuropäische Sommerzeit)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Thu Jul 06 2023 13:53:00 GMT+0200 (Mitteleuropäische Sommerzeit)
 </footer>
 
 <script> prettyPrint(); </script>

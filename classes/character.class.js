@@ -96,20 +96,29 @@ class Character extends MovableObject {
             this.moveCamera();
         }, 1000 / 60);
         setInterval(() => {
-            if (this.isDead()) {
-                this.handleCharacterDead();
-            } else if (this.isHurt()) {
-                this.playAnimation(this.IMAGES_HURT);
-            } else if (this.isAboveGround()) {
-                this.playAnimation(this.IMAGES_JUMPING);
-                this.lastActiveTime = new Date();
-            } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-                this.playAnimation(this.IMAGES_WALKING);
-                this.lastActiveTime = new Date();
-            } else {
-                this.handleIdleAnimation();
-            }
+            this.handleCharacterMoves();
         }, 102);
+    }
+
+
+    /**
+     * This is a help function to smaller the code
+     * 
+     */
+    handleCharacterMoves() {
+        if (this.isDead()) {
+            this.handleCharacterDead();
+        } else if (this.isHurt()) {
+            this.playAnimation(this.IMAGES_HURT);
+        } else if (this.isAboveGround()) {
+            this.playAnimation(this.IMAGES_JUMPING);
+            this.lastActiveTime = new Date();
+        } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+            this.playAnimation(this.IMAGES_WALKING);
+            this.lastActiveTime = new Date();
+        } else {
+            this.handleIdleAnimation();
+        }
     }
 
     /**
@@ -117,23 +126,54 @@ class Character extends MovableObject {
     */
     moveCharacter() {
         this.world.characterWalkSound.pause();
-        if (this.world.keyboard.RIGHT && this.posX < this.world.level.level_end_x) {
+        this.processMoveRight();
+        this.processMoveLeft();
+        this.processJump();
+    }
+
+
+    /**
+     * This is a help function to smaller the code
+     * 
+     */
+    processMoveRight() {
+        if (this.world.keyboard.RIGHT && this.posX < this.world.level.level_end_x && !this.isDead() && !this.world.endbossDead) {
             this.moveRight();
             this.otherDirection = false;
             this.longIdleSound = false;
             if (this.world.isSoundEnabled) {
                 this.world.characterWalkSound.play();
+            } else {
+                this.world.characterWalkSound.pause();
             }
         }
-        if (this.world.keyboard.LEFT && this.posX > -567) {
+    }
+
+
+    /**
+     * This is a help function to smaller the code
+     * 
+     */
+    processMoveLeft() {
+        if (this.world.keyboard.LEFT && this.posX > -567 && !this.isDead() && !this.world.endbossDead) {
             this.moveLeft();
             this.otherDirection = true;
             this.longIdleSound = false;
             if (this.world.isSoundEnabled) {
                 this.world.characterWalkSound.play();
+            } else {
+                this.world.characterWalkSound.pause();
             }
         }
-        if (this.world.keyboard.UP && !this.isAboveGround()) {
+    }
+
+
+    /**
+     * This is a help function to smaller the code
+     * 
+     */
+    processJump() {
+        if (this.world.keyboard.UP && !this.isAboveGround() && !this.isDead() && !this.world.endbossDead) {
             this.jump();
             this.longIdleSound = false;
             if (this.world.isSoundEnabled) {
@@ -158,21 +198,33 @@ class Character extends MovableObject {
      */
     handleCharacterDead() {
         this.playAnimation(this.IMAGES_DEAD);
-        if (this.world.isSoundEnabled) {
-            this.world.characterDeadSound.play();
-            this.world.characterLongIdleSound.pause();
-            this.world.backgroundSoundOn = false;
-            this.world.looseSound.play();
-        }
+        this.handleCharacterDeadSounds();
         setTimeout(() => {
             document.getElementById('looseGame').classList.remove('d-none');
             for (let i = 1; i < 9999; i++) window.clearInterval(i);
-            document.getElementById('startButton').classList.remove('d-none');
             document.getElementById('winGameInfos').classList.add('d-flex');
             document.getElementById('winGameInfos').innerHTML = /*html*/`
                 Verloren! Du hast ${this.world.statusBarCoin.countSessionCoins} Punkte erreicht.
             `;
+            setTimeout(() => {
+                document.getElementById('startButton').classList.remove('d-none');
+            }, 5000);
         }, 1220);
+    }
+
+
+    /**
+    * This is a help function to smaller the code
+    * 
+    */
+    handleCharacterDeadSounds() {
+        if (this.world.isSoundEnabled) {
+            this.world.characterDeadSound.play();
+            this.world.characterLongIdleSound.pause();
+            this.world.characterWalkSound.pause();
+            this.world.backgroundSoundOn = false;
+            this.world.looseSound.play();
+        }
     }
 
 
