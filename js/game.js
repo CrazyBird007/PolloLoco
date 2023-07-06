@@ -21,10 +21,12 @@ function stopAllSoundsInWorld() {
         world.isSoundEnabled = false;
         soundOn = false;
         document.getElementById('bigSoundImage').src = './img/mobil_icons/icons8-kein-ton-100.png';
+        document.getElementById('bigSoundImageSmall').src = './img/mobil_icons/icons8-kein-ton-100.png';
     } else {
         world.isSoundEnabled = true;
         soundOn = true;
         document.getElementById('bigSoundImage').src = './img/mobil_icons/icons8-ton-100.png';
+        document.getElementById('bigSoundImageSmall').src = './img/mobil_icons/icons8-ton-100.png';
     }
 }
 
@@ -133,6 +135,11 @@ function buttonTouchEvents() {
         e.preventDefault();
         showPopup();
     });
+
+    document.getElementById('bigSoundImageSmall').addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        stopAllSoundsInWorld();
+      });
 }
 
 

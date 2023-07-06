@@ -84,8 +84,8 @@ h1 {
 }
 
 .mobileButtonsBottom img {
-    height: 40px;
-    width: 40px;
+    height: 50px;
+    width: 50px;
     margin-right: 10px;
     margin-bottom: 10px;
     cursor: pointer;
@@ -249,6 +249,17 @@ h1 {
     margin-right: 20px;
 }
 
+#turnMobile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(255, 132, 0);
+    padding: 20px;
+    border-radius: 10px;
+    font-size: 20px;
+    margin-top: 10px;
+}
+
 @font-face {
     font-family: 'zabras';
     src: url('./fonts/zabars.ttf') format('truetype');
@@ -260,10 +271,17 @@ h1 {
     canvas {
         width: 100%;
     }
+
+    #buttonBox {
+        display: none;
+    }
 }
 
 @media (min-width: 853px) {
     .mobileButtons {
+        display: none;
+    }
+    #turnMobile {
         display: none;
     }
 }
@@ -286,6 +304,10 @@ h1 {
     }
 
     #buttonBox {
+        display: none;
+    }
+
+    #turnMobile {
         display: none;
     }
 
