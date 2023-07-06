@@ -135,6 +135,7 @@ class Character extends MovableObject {
         this.playAnimation(this.IMAGES_DEAD);
         if (this.world.isSoundEnabled) {
             this.world.characterDeadSound.play();
+            this.world.characterLongIdleSound.pause();
         }
         setTimeout(() => {
             document.getElementById('looseGame').classList.remove('d-none');

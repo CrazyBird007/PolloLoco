@@ -23,12 +23,13 @@ class World {
     characterJumpSound = new Audio('./audio/character_jump.mp3');
     characterDeadSound = new Audio('./audio/character_dead.mp3');
     characterLongIdleSound = new Audio('./audio/character_sleep_snoring.mp3');
+    characterLHurt = new Audio('./audio/character_damage_1.mp3');
 
     bottleSound = new Audio('./audio/bottle.mp3');
-    // brokeBottleSound = new Audio('./audio/character_sleep_snoring.mp3');
+    brokeBottleSound = new Audio('./audio/broken_bottle.mp3');
 
-    // chickenSound = new Audio('./audio/character_sleep_snoring.mp3');
-    // endbossDeadSound = new Audio('./audio/character_sleep_snoring.mp3');
+    chickenSound = new Audio('./audio/chicken.mp3');
+    endbossDeadSound = new Audio('./audio/endboss_dead.mp3');
 
 
     constructor(canvas, keyboard) {
@@ -86,6 +87,10 @@ class World {
                 if (object.isCollidingEnemy(enemy) && !object.hasHitEnemy) {
                     console.log('Flasche trifft Gegner / objekt', enemy, object);
                     object.hasHitEnemy = true;
+                    if (this.isSoundEnabled) {
+                        this.brokeBottleSound.play();
+                        this.chickenSound.play();
+                    }
                     if (enemy instanceof Endboss) {
                         this.handleEndbossCollision(enemy);
                     } else if ((enemy instanceof EnemyChicken || enemy instanceof SmallEnemyChicken) && !enemy.isDead()) {
@@ -116,6 +121,10 @@ class World {
                     this.character.hit();
                     this.statusBar.setPercentage(this.character.energy);
                     console.log('after collision energy from character:', this.character.energy);
+                    if (this.isSoundEnabled) {
+                        this.characterLHurt.play();
+                        this.characterLongIdleSound.pause();
+                    }
                 }
             }
         });
@@ -146,6 +155,9 @@ class World {
         console.log('bottle trifft Endboss Leben:', enemy.energy);
         if (enemy.isDead()) {
             enemy.playAnimation(enemy.IMAGES_DEAD);
+            if (this.isSoundEnabled) {
+                this.endbossDeadSound.play();
+            }
             setTimeout(() => {
                 document.getElementById('looseGame').classList.remove('d-none');
                 for (let i = 1; i < 9999; i++) window.clearInterval(i);
