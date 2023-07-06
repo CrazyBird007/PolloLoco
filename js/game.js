@@ -129,6 +129,7 @@ function buttonTouchEvents() {
         e.preventDefault();
         initLevel1();
         init();
+        buttonTouchEvents();
     });
 
     document.getElementById('helpButtonSmall').addEventListener('touchstart', (e) => {
@@ -136,10 +137,15 @@ function buttonTouchEvents() {
         showPopup();
     });
 
-    document.getElementById('bigSoundImageSmall').addEventListener('touchstart', (e) => {
+    // document.getElementById('bigSoundImageSmall').addEventListener('touchstart', (e) => {
+    //     e.preventDefault();
+    //     stopAllSoundsInWorld();
+    //   });
+
+      document.getElementById('bigSoundImageSmall').addEventListener('click', (e) => {
         e.preventDefault();
         stopAllSoundsInWorld();
-      });
+    });
 }
 
 

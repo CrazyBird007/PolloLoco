@@ -197,5 +197,6 @@ function initLevel1() {
     document.getElementById('winGameInfos').classList.remove('d-flex');
     document.getElementById('stopSoundButton').classList.remove('d-none');
     document.getElementById('bigSoundImage').src = './img/mobil_icons/icons8-ton-100.png';
+    document.getElementById('bigSoundImageSmall').src = './img/mobil_icons/icons8-ton-100.png';
     soundOn = true;
 }
