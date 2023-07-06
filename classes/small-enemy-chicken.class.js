@@ -1,3 +1,7 @@
+/**
+* Represents a small enemy chicken in the game.
+* @extends MovableObject
+*/
 class SmallEnemyChicken extends MovableObject {
     height = 50;
     width = 50;
@@ -13,6 +17,10 @@ class SmallEnemyChicken extends MovableObject {
     ];
 
 
+    /**
+    * Creates a new instance of SmallEnemyChicken.
+    * 
+    */
     constructor() {
         super().loadImage('./img/3_enemies_chicken/chicken_small/1_walk/1_w.png');
         this.loadImages(this.IMAGES_WALKING);
@@ -23,6 +31,10 @@ class SmallEnemyChicken extends MovableObject {
     }
 
 
+    /**
+    * Animates the small enemy chicken's movement and walking animation.
+    * 
+    */
     animate() {
         setInterval(() => {
             if (this.energy > 0) {
@@ -37,6 +49,10 @@ class SmallEnemyChicken extends MovableObject {
     }
 
 
+    /**
+    * Decreases the energy of the small enemy chicken when hit.
+    * 
+    */
     hit() {
         this.energy -= 100;
         if (this.energy < 0) {

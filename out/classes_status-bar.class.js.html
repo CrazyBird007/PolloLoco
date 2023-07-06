@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: classes/background-static.class.js</title>
+    <title>JSDoc: Source: classes/status-bar.class.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: classes/background-static.class.js</h1>
+    <h1 class="page-title">Source: classes/status-bar.class.js</h1>
 
     
 
@@ -27,44 +27,67 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * Represents a background object in the game.
- * @extends MovableObject
- */
-class BackgroundObject extends MovableObject {
-    /**
-     * The X position of the background object.
-     * @type {number}
-     */
-    posX = 0;
+* Represents a status bar for health in the game.
+* @extends DrawableObject
+*/
+class StatusBarHealth extends DrawableObject {
+    IMAGES = [
+        './img/7_statusbars/1_statusbar/2_statusbar_health/green/0.png',
+        './img/7_statusbars/1_statusbar/2_statusbar_health/green/20.png',
+        './img/7_statusbars/1_statusbar/2_statusbar_health/green/40.png',
+        './img/7_statusbars/1_statusbar/2_statusbar_health/green/60.png',
+        './img/7_statusbars/1_statusbar/2_statusbar_health/green/80.png',
+        './img/7_statusbars/1_statusbar/2_statusbar_health/green/100.png',
+    ];
+    percentage = 100;
+
 
     /**
-     * The Y position of the background object.
-     * @type {number}
+     * Creates a new instance of StatusBarHealth.
+     * 
      */
-    posY = 0;
+    constructor() {
+        super();
+        this.loadImages(this.IMAGES);
+        this.setPercentage(100);
+        this.posX = 0;
+        this.posY = -15;
+        this.width = 130;
+        this.height = 50;
+    }
+
 
     /**
-     * The width of the background object.
-     * @type {number}
-     */
-    width = 720;
+    * Sets the percentage value of the health status bar.
+    * 
+    * @param {number} percentage - The percentage value to set.
+    */
+    setPercentage(percentage) {
+        this.percentage = percentage;
+        let path = this.IMAGES[this.resolveImageIndex(this.percentage)];
+        this.img = this.imageCache[path]
+    }
+
 
     /**
-     * The height of the background object.
-     * @type {number}
-     */
-    height = 480;
-
-    /**
-     * Constructs a new BackgroundObject instance.
-     * @param {string} imagePath - The path to the image representing the background object.
-     * @param {number} posX - The X position of the background object.
-     * @param {number} posY - The Y position of the background object.
-     */
-    constructor(imagePath, posX, posY) {
-        super().loadImage(imagePath);
-        this.posX = posX;
-        this.posY = posY;
+    * Resolves the image index based on the current percentage value.
+    * 
+    * @returns {number} - The resolved image index.
+    */
+    resolveImageIndex() {
+        if (this.percentage == 100) {
+            return 5;
+        } else if (this.percentage > 70) {
+            return 4;
+        } else if (this.percentage > 50) {
+            return 3;
+        } else if (this.percentage > 30) {
+            return 2;
+        } else if (this.percentage > 10) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 }</code></pre>
         </article>

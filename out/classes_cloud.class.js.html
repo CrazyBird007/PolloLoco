@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: classes/background-static.class.js</title>
+    <title>JSDoc: Source: classes/cloud.class.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: classes/background-static.class.js</h1>
+    <h1 class="page-title">Source: classes/cloud.class.js</h1>
 
     
 
@@ -27,46 +27,56 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * Represents a background object in the game.
+ * Represents a movable cloud object.
  * @extends MovableObject
  */
-class BackgroundObject extends MovableObject {
-    /**
-     * The X position of the background object.
-     * @type {number}
-     */
-    posX = 0;
-
-    /**
-     * The Y position of the background object.
-     * @type {number}
-     */
+class Cloud extends MovableObject {
     posY = 0;
-
-    /**
-     * The width of the background object.
-     * @type {number}
-     */
     width = 720;
-
-    /**
-     * The height of the background object.
-     * @type {number}
-     */
     height = 480;
+    speed = 0.12;
+    posX = 300;
+    IMAGES_CLOUDS = [
+        './img/5_background/layers/4_clouds/1.png',
+        './img/5_background/layers/4_clouds/2.png',
+    ];
+
 
     /**
-     * Constructs a new BackgroundObject instance.
-     * @param {string} imagePath - The path to the image representing the background object.
-     * @param {number} posX - The X position of the background object.
-     * @param {number} posY - The Y position of the background object.
+     * creates an instance of the cloud with a random cloud image
+     * 
      */
-    constructor(imagePath, posX, posY) {
-        super().loadImage(imagePath);
-        this.posX = posX;
-        this.posY = posY;
+    constructor() {
+        super();
+        this.posX = -100 + Math.random() * 8000;
+        this.speed = 0.09 + Math.random() * 1;
+        this.animateCloud();
+        this.chooseRandomImage();
     }
-}</code></pre>
+
+
+    /**
+     * choose a random cloud image for the constructor
+     * 
+     */
+    chooseRandomImage() {
+        let randomIndex = Math.floor(Math.random() * this.IMAGES_CLOUDS.length);
+        let randomImage = this.IMAGES_CLOUDS[randomIndex];
+        this.loadImage(randomImage);
+      }
+
+
+      /**
+       * Animates the cloud by moving it to the left.
+       * 
+       */
+    animateCloud() {
+        setInterval(() => {
+            this.moveLeft();
+        }, 1000 / 60); 
+    }
+}
+</code></pre>
         </article>
     </section>
 

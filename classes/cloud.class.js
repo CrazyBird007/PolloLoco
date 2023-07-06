@@ -1,3 +1,7 @@
+/**
+ * Represents a movable cloud object.
+ * @extends MovableObject
+ */
 class Cloud extends MovableObject {
     posY = 0;
     width = 720;
@@ -10,6 +14,10 @@ class Cloud extends MovableObject {
     ];
 
 
+    /**
+     * creates an instance of the cloud with a random cloud image
+     * 
+     */
     constructor() {
         super();
         this.posX = -100 + Math.random() * 8000;
@@ -19,6 +27,10 @@ class Cloud extends MovableObject {
     }
 
 
+    /**
+     * choose a random cloud image for the constructor
+     * 
+     */
     chooseRandomImage() {
         let randomIndex = Math.floor(Math.random() * this.IMAGES_CLOUDS.length);
         let randomImage = this.IMAGES_CLOUDS[randomIndex];
@@ -26,6 +38,10 @@ class Cloud extends MovableObject {
       }
 
 
+      /**
+       * Animates the cloud by moving it to the left.
+       * 
+       */
     animateCloud() {
         setInterval(() => {
             this.moveLeft();

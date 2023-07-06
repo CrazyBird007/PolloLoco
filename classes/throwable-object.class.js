@@ -1,3 +1,7 @@
+/**
+* Represents a throwable object in the game.
+* @extends MovableObject
+*/
 class ThrowableObject extends MovableObject {
     height = 60;
     width = 80;
@@ -19,6 +23,12 @@ class ThrowableObject extends MovableObject {
     ];
 
 
+    /**
+    * Creates a new instance of ThrowableObject.
+    * 
+    * @param {number} x - The x-coordinate of the throwable object.
+    * @param {number} y - The y-coordinate of the throwable object.
+    */
     constructor(x, y) {
         super().loadImage('./img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png');
         this.loadImages(this.IMAGES_ROTATE);
@@ -29,6 +39,10 @@ class ThrowableObject extends MovableObject {
     }
 
 
+    /**
+     * Throws the throwable object.
+     * 
+     */
     throw() {
         setInterval(() => {
             if (!this.hasHitEnemy) {

@@ -1,3 +1,7 @@
+/**
+* Represents a status bar for coins in the game.
+* @extends StatusBarHealth
+*/
 class StatusBarCoin extends StatusBarHealth {
   IMAGES = [
     './img/7_statusbars/1_statusbar/1_statusbar_coin/blue/0.png',
@@ -11,6 +15,10 @@ class StatusBarCoin extends StatusBarHealth {
   countSessionCoins = 0;
 
 
+  /**
+   * Creates a new instance of StatusBarCoin
+   * 
+   */
   constructor() {
     super();
     this.loadImages(this.IMAGES);
@@ -22,6 +30,10 @@ class StatusBarCoin extends StatusBarHealth {
   }
 
 
+  /**
+   * Updates the coin status bar based on the current percentage.
+   * 
+   */
   updateCoinStatusBar() {
     this.percentage += 8; //  100 / coin menge = percentage wert um bei allen coins 100 zu haben... 
     if (this.percentage > 100) {   //(funktioniert nur bei einem level oder gleichbleibenden coinmengen)

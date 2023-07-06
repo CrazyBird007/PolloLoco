@@ -1,3 +1,8 @@
+/**
+ * Represents a status bar for bottles in the game.
+ * 
+ * @extends StatusBarHealth
+ */
 class StatusBarBottle extends StatusBarHealth {
   IMAGES = [
     './img/7_statusbars/1_statusbar/3_statusbar_bottle/orange/0.png',
@@ -10,6 +15,10 @@ class StatusBarBottle extends StatusBarHealth {
   percentage = 0;
 
 
+  /**
+  * Creates a new instance of StatusBarBottle.
+  * 
+  */
   constructor() {
     super();
     this.loadImages(this.IMAGES);
@@ -21,8 +30,12 @@ class StatusBarBottle extends StatusBarHealth {
   }
 
 
+  /**
+   * Updates the bottle status bar based on the current percentage.
+   * 
+   */
   updateBottleStatusBar() {
-    this.percentage += 17; // 100 / bottle menge = percentage wert um bei allen bottles 100 zu haben...
+    this.percentage += 10; // 100 / bottle menge = percentage wert um bei allen bottles 100 zu haben...
     if (this.percentage > 100) {
       this.percentage = 100;
     }
@@ -32,8 +45,12 @@ class StatusBarBottle extends StatusBarHealth {
   }
 
 
+  /**
+   * Updates the bottle status bar when a bottle is thrown.
+   * 
+   */
   updateBottleStatusBarWhenThrow() {
-    this.percentage -= 17;// 100 / bottle menge = percentage wert um bei allen bottles 100 zu haben...
+    this.percentage -= 10;// 100 / bottle menge = percentage wert um bei allen bottles 100 zu haben...
     if (this.percentage > 100) {
       this.percentage = 100;
     }

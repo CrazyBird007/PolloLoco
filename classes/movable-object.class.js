@@ -1,36 +1,38 @@
+/**
+* Represents a movable object in the game.
+* @extends DrawableObject
+*/
 class MovableObject extends DrawableObject {
     speed = 0.012;
     otherDirection = false;
     speedY = 0;
     acceleration = 3;
-    offsetY = 0; 
+    offsetY = 0;
     energy = 100;
     lastHit = 0;
     enemyIndexSave;
 
 
-    // offsetY jetzt verstanden, das könnte man z.b. dem charakter geben um dessen äußere werte anzupassen oder dem coin etc.
-    //neuer isColliding code ; diese positionen sind für die characterabgrenzung wichtig und können ggf. geändert werden, 
-    //schau dazu in der drawframeborder function nach:       // this.posX + 47, this.posY + 100, this.width - 90, this.height - 112
-    isColliding(obj) { //character anpassungen //offsetY gibts nun global und beim character jump ändert sie sich da
+    /**
+    * Checks if the character is colliding with enemy.
+    * 
+    * @param {any} obj - The object to check collision with.
+    * @returns {boolean} - True if colliding, false otherwise.
+    */
+    isColliding(obj) {
         return (this.posX + 47 + this.width - 90) >= obj.posX &&
             this.posX + 47 <= (obj.posX + obj.width) &&
             (this.posY + 100 + this.offsetY + this.height - 112) >= obj.posY &&
             (this.posY + 100 + this.offsetY) <= (obj.posY + obj.height);
-        // &&  //das && obj.onCollisionCourse; erstmal rauslassen
-        // obj.onCollisionCourse; // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt.
-    }                              // Nur dann kollidieren wir. Nützlich bei Gegenständen, auf denen man stehen kann.
+    }
 
 
-    // isColliding(obj) { //einfacherer alter colliding code, funktioniert auch
-    //     return this.posX + 47 + this.width - 90 > obj.posX &&
-    //     this.posY + 100 + this.height - 112 > obj.posY &&
-    //     this.posX + 47 < obj.posX + obj.width &&  //im video fehlt das +obj.width
-    //     this.posY + 100 < obj.posY + obj.height;
-    //     //this.posX + 47, this.posY + 100, this.width - 90, this.height - 112 //(das ist der rote rahme vom character, diese werte müssen noch hinzugefügt bzw abgezogen werden)
-    // }
-
-
+    /**
+    * Checks if the enemy is colliding with character or bottle.
+    * 
+    * @param {any} obj - The enemy object to check collision with.
+    * @returns {boolean} - True if colliding with an enemy, false otherwise.
+    */
     isCollidingEnemy(obj) { //ohne die character anpassungen nur außenkante der images....
         return (this.posX + this.width) >= obj.posX &&
             this.posX <= (obj.posX + obj.width) &&
@@ -38,14 +40,11 @@ class MovableObject extends DrawableObject {
             (this.posY + this.offsetY) <= (obj.posY + obj.height);
     }
 
-    // isCollidingEnemy(obj) { // mit character anpassungen... klappt aber auch nciht bessser wohl
-    //     return (this.posX + this.width) >= obj.posX + 47 &&
-    //         this.posX <= (obj.posX + 47 + obj.width - 90) &&
-    //         (this.posY + this.offsetY + this.height) >= obj.posY + 100 &&
-    //         (this.posY + this.offsetY) <= (obj.posY + 100 + obj.height - 112);
-    // }
 
-
+    /**
+     * Decreases the energy of the movable object when hit.
+     * 
+     */
     hit() {
         this.energy -= 10;
         if (this.energy < 0) {
@@ -56,46 +55,77 @@ class MovableObject extends DrawableObject {
     }
 
 
-    isDead() { 
+    /**
+    * Checks if the movable object is dead (energy is zero).
+    * @returns {boolean} - True if dead, false otherwise.
+    */
+    isDead() {
         return this.energy == 0;
     }
 
 
+    /**
+    * Checks if the movable object is hurt (recently hit).
+    * 
+    * @returns {boolean} - True if hurt, false otherwise.
+    */
     isHurt() {
         let timepassed = new Date().getTime() - this.lastHit;
-        timepassed = timepassed / 1000; 
+        timepassed = timepassed / 1000;
         return timepassed < 1;
     }
 
 
+    /**
+     * Moves the movable object to the right.
+     * 
+     */
     moveRight() {
         this.posX += this.speed;
     }
 
 
+    /**
+     * Moves the movable object to the left.
+     * 
+     */
     moveLeft() {
         this.posX -= this.speed;
     }
 
 
+    /**
+    * Plays the animation for the movable object using the provided images.
+    * 
+    * @param {string[]} image - The array of image paths for the animation.
+    */
     playAnimation(image) {
-        let i = this.currentImage % image.length; 
+        let i = this.currentImage % image.length;
         let path = image[i];
         this.img = this.imageCache[path];
-        this.currentImage++; 
+        this.currentImage++;
     }
 
 
+    /**
+     * Applies gravity to the movable object, causing it to fall.
+     * 
+     */
     applyGravity() {
         setInterval(() => {
             if (this.isAboveGround() || this.speedY > 0) {
                 this.posY -= this.speedY;
                 this.speedY -= this.acceleration;
             }
-        }, 1000 / 25); 
+        }, 1000 / 25);
     }
 
 
+    /**
+    * Checks if the movable object is above the ground.
+    * 
+    * @returns {boolean} - True if above the ground, false otherwise.
+    */
     isAboveGround() {
         if (this instanceof ThrowableObject) {
             return true;
@@ -105,6 +135,10 @@ class MovableObject extends DrawableObject {
     }
 
 
+    /**
+     * Make the object jump.
+     * 
+     */
     jump() {
         this.speedY = 30;
     }

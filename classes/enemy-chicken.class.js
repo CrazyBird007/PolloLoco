@@ -13,6 +13,10 @@ class EnemyChicken extends MovableObject {
     ];
 
 
+    /**
+     * Creates an instance of EnemyChicken.
+     * 
+     */
     constructor() {
         super().loadImage('./img/3_enemies_chicken/chicken_normal/1_walk/1_w.png');
         this.posX = 300 + Math.random() * 10000;
@@ -23,6 +27,10 @@ class EnemyChicken extends MovableObject {
     }
 
 
+    /**
+     * Animates the enemy chicken by moving it to the left and playing the walking animation.
+     * 
+     */
     animate() {
         setInterval(() => {
             if (this.energy > 0) {
@@ -38,6 +46,10 @@ class EnemyChicken extends MovableObject {
     }
 
 
+    /**
+     * Decreases the energy level of the enemy chicken when hit.
+     * 
+     */
     hit() {
         this.energy -= 100;
         if (this.energy < 0) {

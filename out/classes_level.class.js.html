@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: classes/background-static.class.js</title>
+    <title>JSDoc: Source: classes/level.class.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: classes/background-static.class.js</h1>
+    <h1 class="page-title">Source: classes/level.class.js</h1>
 
     
 
@@ -27,44 +27,26 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * Represents a background object in the game.
- * @extends MovableObject
+ * Represents a game level.
+ * 
  */
-class BackgroundObject extends MovableObject {
-    /**
-     * The X position of the background object.
-     * @type {number}
-     */
-    posX = 0;
+class Level {
+    enemies;
+    clouds;
+    backgroundObjects;
+    level_end_x = 2165;
+
 
     /**
-     * The Y position of the background object.
-     * @type {number}
-     */
-    posY = 0;
-
-    /**
-     * The width of the background object.
-     * @type {number}
-     */
-    width = 720;
-
-    /**
-     * The height of the background object.
-     * @type {number}
-     */
-    height = 480;
-
-    /**
-     * Constructs a new BackgroundObject instance.
-     * @param {string} imagePath - The path to the image representing the background object.
-     * @param {number} posX - The X position of the background object.
-     * @param {number} posY - The Y position of the background object.
-     */
-    constructor(imagePath, posX, posY) {
-        super().loadImage(imagePath);
-        this.posX = posX;
-        this.posY = posY;
+    * Creates an instance of Level.
+    * @param {any} enemies - The enemies in the level.
+    * @param {any} clouds - The clouds in the level.
+    * @param {any} backgroundObjects - The background objects in the level.
+    */
+    constructor(enemies, clouds, backgroundObjects) { //aus dem levels ordner wird hier z.b. level1.js 3 funktionsparameter 
+        this.enemies = enemies;  //weitergegeben im constructor und diese werden dann ind er class level  zu einem object
+        this.clouds = clouds;   //erstellt indem sie hier übergeben werden mit this.enemies= enemies z.b.
+        this.backgroundObjects = backgroundObjects;
     }
 }</code></pre>
         </article>

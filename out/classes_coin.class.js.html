@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: classes/background-static.class.js</title>
+    <title>JSDoc: Source: classes/coin.class.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: classes/background-static.class.js</h1>
+    <h1 class="page-title">Source: classes/coin.class.js</h1>
 
     
 
@@ -26,45 +26,45 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/**
- * Represents a background object in the game.
- * @extends MovableObject
- */
-class BackgroundObject extends MovableObject {
-    /**
-     * The X position of the background object.
-     * @type {number}
-     */
-    posX = 0;
+            <pre class="prettyprint source linenums"><code>class Coin extends MovableObject {
+    height = 100;
+    width = 100;
+    posY = 365;
+    IMAGES_COIN = [
+        './img/8_coin/coin_1.png',
+        './img/8_coin/coin_2.png',
+    ];
+
 
     /**
-     * The Y position of the background object.
-     * @type {number}
-     */
-    posY = 0;
+    * Creates an instance of Coin.
+    * 
+    * @param {number} posX - The initial horizontal position of the coin.
+    * @param {number} posY - The initial vertical position of the coin.
+    * @param {boolean} [randomSpawn=false] - Indicates if the coin should be spawned at a random position.
+    */
+    constructor(posX, posY, randomSpawn = false) {
+        super().loadImage('./img/8_coin/coin_1.png');
+        this.loadImages(this.IMAGES_COIN);
+        this.animate();
+        if (randomSpawn) {
+            this.posX = -500 + Math.random() * 2750;
+            this.posY = 70 + Math.random() * 330;
+        } else {
+            this.posX = posX;
+            this.posY = posY;
+        }
+    }
+
 
     /**
-     * The width of the background object.
-     * @type {number}
+     * Animates the coin by playing the animation.
+     * 
      */
-    width = 720;
-
-    /**
-     * The height of the background object.
-     * @type {number}
-     */
-    height = 480;
-
-    /**
-     * Constructs a new BackgroundObject instance.
-     * @param {string} imagePath - The path to the image representing the background object.
-     * @param {number} posX - The X position of the background object.
-     * @param {number} posY - The Y position of the background object.
-     */
-    constructor(imagePath, posX, posY) {
-        super().loadImage(imagePath);
-        this.posX = posX;
-        this.posY = posY;
+    animate() {
+        setInterval(() => {
+            this.playAnimation(this.IMAGES_COIN);
+        }, 600);
     }
 }</code></pre>
         </article>
