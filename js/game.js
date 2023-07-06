@@ -1,6 +1,7 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
+let soundOn = true;
 
 
 /**
@@ -11,19 +12,22 @@ function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
     buttonTouchEvents();
-    console.log('My world is:', world.character, world.enemies, world.backgroundObjects, world.clouds); 
+    console.log('My world is:', world.character, world.enemies, world.backgroundObjects, world.clouds);
 }
+
 
 function stopAllSoundsInWorld() {
-    // world.stopAllSounds();
-    world.isSoundEnabled = false;  
-    console.log('sound ausgestellt')
+    if (soundOn) {
+        world.isSoundEnabled = false;
+        soundOn = false;
+        document.getElementById('bigSoundImage').src = './img/mobil_icons/icons8-kein-ton-100.png';
+    } else {
+        world.isSoundEnabled = true;
+        soundOn = true;
+        document.getElementById('bigSoundImage').src = './img/mobil_icons/icons8-ton-100.png';
+    }
 }
 
-function enableAllSounds() {
-    world.isSoundEnabled = true;
-    console.log('sound angestellt')
-}
 
 /**
  * This function sets the `key` variable to true based on the keyboard event.
@@ -119,7 +123,7 @@ function buttonTouchEvents() {
         keyboard.F = false;
     });
 
-    document.getElementById('startButton').addEventListener('touchstart', (e) => { 
+    document.getElementById('startButton').addEventListener('touchstart', (e) => {
         e.preventDefault();
         initLevel1();
         init();

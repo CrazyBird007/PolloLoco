@@ -228,9 +228,10 @@ h1 {
 }
 
 .d-none {
-    display: none;
+    display: none!important; 
     position: relative;
 }
+
 
 .d-flex {
     display: flex;

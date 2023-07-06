@@ -17,8 +17,18 @@ class World {
     * 
     */
     isSoundEnabled = true; 
-    coinCollectSound = new Audio('./audio/coin.mp3');
+    coinSound = new Audio('./audio/coin.mp3');
+
     characterWalkSound = new Audio('./audio/character_walk.mp3');
+    characterJumpSound = new Audio('./audio/character_jump.mp3');
+    characterDeadSound = new Audio('./audio/character_dead.mp3');
+    characterLongIdleSound = new Audio('./audio/character_sleep_snoring.mp3');
+
+    bottleSound = new Audio('./audio/bottle.mp3');
+    // brokeBottleSound = new Audio('./audio/character_sleep_snoring.mp3');
+
+    // chickenSound = new Audio('./audio/character_sleep_snoring.mp3');
+    // endbossDeadSound = new Audio('./audio/character_sleep_snoring.mp3');
 
 
     constructor(canvas, keyboard) {
@@ -30,11 +40,6 @@ class World {
         this.run();
     }
 
-
-    // stopAllSounds() {
-    //     this.characterWalkSound.pause();
-    //     this.characterWalkSound.currentTime = 0;
-    // }
 
     setWorld() {
         this.character.world = this;
@@ -122,8 +127,14 @@ class World {
             if (this.character.isColliding(cloud)) {
                 if (cloud instanceof Coin) {
                     this.handleCoinCollision(cloud);
+                    if (this.isSoundEnabled) {
+                        this.coinSound.play();
+                    }
                 } else if (cloud instanceof Bottle) {
                     this.handleBottleCollision(cloud);
+                    if (this.isSoundEnabled) {
+                        this.bottleSound.play();
+                    }
                 }
             }
         });

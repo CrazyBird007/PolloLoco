@@ -61,6 +61,7 @@ class Character extends MovableObject {
         'img/2_character_pepe/1_idle/long_idle/I-20.png',
     ];
     world;
+    longIdleSound = false;
 
 
     constructor() {
@@ -77,56 +78,7 @@ class Character extends MovableObject {
     }
 
 
-    // animate() { //ganze funktion
-    //     setInterval(() => {
-    //         if (this.world.keyboard.RIGHT && this.posX < this.world.level.level_end_x) { // char kann nicht weiter als level_endX nach rechts gehen
-    //             this.moveRight();
-    //             this.otherDirection = false;
-    //         }
-    //         if (this.world.keyboard.LEFT && this.posX > -567) { // durch das && posX kann der charakter nciht weiter als > X nach links laufen
-    //             this.moveLeft();
-    //             this.otherDirection = true;
-    //         }
-    //         if (this.world.keyboard.UP && !this.isAboveGround()) { //er springt wenn man key UP drückt, nur wenn er am boden ist
-    //             this.jump();
-    //         }
-    //         this.world.camera_x = -this.posX + 150; // wenn x vom char. verändert wird, wird die camera_x variable verändert, so bewegt sich das bild
-    //     }, 1000 / 60);        // durch das z.b. +150  wird der charakter im bild verschoben, so könnte er mittig sein oder leicht links
-    //     setInterval(() => {
-    //         if (this.isDead()) {
-    //             this.playAnimation(this.IMAGES_DEAD);
-    //             setTimeout(() => {
-    //                 document.getElementById('looseGame').classList.remove('d-none');
-    //                 for (let i = 1; i < 9999; i++) window.clearInterval(i);
-    //                 document.getElementById('startButton').classList.remove('d-none');
-    //                 document.getElementById('winGameInfos').classList.add('d-flex');
-    //                 document.getElementById('winGameInfos').innerHTML = /*html*/`
-    //                 Verloren! Du hast ${this.world.statusBarCoin.countSessionCoins} Punkte erreicht.
-    //             `;
-    //             }, 1220);
-    //         } else if (this.isHurt()) {
-    //             this.playAnimation(this.IMAGES_HURT);
-    //         } else if (this.isAboveGround()) {
-    //             this.playAnimation(this.IMAGES_JUMPING);
-    //             this.lastActiveTime = new Date();
-    //         } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-    //             this.playAnimation(this.IMAGES_WALKING);
-    //             this.lastActiveTime = new Date();
-    //         } else {
-    //             const currentTime = new Date();
-    //             const idleTime = currentTime - this.lastActiveTime;
-    //             const startLongIdle = 7000;
-    //             if (idleTime >= startLongIdle) {
-    //                 this.playAnimation(this.IMAGES_LONG_IDLE);
-    //             } else {
-    //                 this.playAnimation(this.IMAGES_IDLE);
-    //             }
-    //         }
-    //     }, 102);
-    // }
-
-
-    animate() { //ausgelagerte funktion
+    animate() { 
         setInterval(() => {
             this.moveCharacter();
             this.moveCamera();
@@ -153,6 +105,7 @@ class Character extends MovableObject {
         if (this.world.keyboard.RIGHT && this.posX < this.world.level.level_end_x) {
             this.moveRight();
             this.otherDirection = false;
+            this.longIdleSound = false;
             if (this.world.isSoundEnabled) {
                 this.world.characterWalkSound.play();
             }
@@ -160,9 +113,17 @@ class Character extends MovableObject {
         if (this.world.keyboard.LEFT && this.posX > -567) {
             this.moveLeft();
             this.otherDirection = true;
+            this.longIdleSound = false;
+            if (this.world.isSoundEnabled) {
+                this.world.characterWalkSound.play();
+            }
         }
         if (this.world.keyboard.UP && !this.isAboveGround()) {
             this.jump();
+            this.longIdleSound = false;
+            if (this.world.isSoundEnabled) {
+                this.world.characterJumpSound.play();
+            }
         }
     }
     
@@ -172,6 +133,9 @@ class Character extends MovableObject {
     
     handleCharacterDead() {
         this.playAnimation(this.IMAGES_DEAD);
+        if (this.world.isSoundEnabled) {
+            this.world.characterDeadSound.play();
+        }
         setTimeout(() => {
             document.getElementById('looseGame').classList.remove('d-none');
             for (let i = 1; i < 9999; i++) window.clearInterval(i);
@@ -184,13 +148,18 @@ class Character extends MovableObject {
     }
     
     handleIdleAnimation() {
+        this.world.characterLongIdleSound.pause();
         const currentTime = new Date();
         const idleTime = currentTime - this.lastActiveTime;
-        const startLongIdle = 7000;
+        const startLongIdle = 4000;
         if (idleTime >= startLongIdle) {
             this.playAnimation(this.IMAGES_LONG_IDLE);
+            this.longIdleSound = true;
         } else {
             this.playAnimation(this.IMAGES_IDLE);
+        }
+        if (this.world.isSoundEnabled && this.longIdleSound) {
+            this.world.characterLongIdleSound.play();
         }
     }    
 

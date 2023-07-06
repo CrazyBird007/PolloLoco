@@ -195,4 +195,5 @@ function initLevel1() {
     document.getElementById('startButton').classList.add('d-none');
     document.getElementById('startGame').classList.add('d-none');
     document.getElementById('winGameInfos').classList.remove('d-flex');
+    document.getElementById('stopSoundButton').classList.remove('d-none');
 }
