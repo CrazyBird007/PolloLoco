@@ -280,6 +280,12 @@ h1 {
     #buttonBox {
         display: none;
     }
+    #winGameInfos {
+        font-size: 16px;
+    }
+    #fullscreen {
+        display: none;
+    }
 }
 
 @media (min-width: 853px) {
@@ -298,6 +304,9 @@ h1 {
 
     #headline {
         display: none;
+    }
+    #fullscreen {
+        display: flex;
     }
 
     #fullscreenButton {

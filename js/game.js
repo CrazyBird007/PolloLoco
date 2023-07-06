@@ -13,7 +13,6 @@ function init() {
     world = new World(canvas, keyboard);
     world.isSoundEnabled = true;
     buttonTouchEvents();
-    console.log('My world is:', world.character, world.enemies, world.backgroundObjects, world.clouds);
 }
 
 
@@ -130,22 +129,10 @@ function buttonTouchEvents() {
         keyboard.F = false;
     });
 
-    // document.getElementById('startButton').addEventListener('touchstart', (e) => {
-    //     e.preventDefault();
-    //     initLevel1();
-    //     init();
-    //     buttonTouchEvents();
-    // });
-
     document.getElementById('helpButtonSmall').addEventListener('touchstart', (e) => {
         e.preventDefault();
         showPopup();
     });
-
-    // document.getElementById('bigSoundImageSmall').addEventListener('touchend', (e) => {
-    //     e.preventDefault();
-    //     stopAllSoundsInWorld();
-    // });
 }
 
 

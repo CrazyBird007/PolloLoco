@@ -104,7 +104,6 @@ class World {
                 this.throwableObjects.push(this.bottle);
                 this.collectedBottles--;
                 this.statusBarBottle.updateBottleStatusBarWhenThrow();
-                console.log('current bottles:', this.collectedBottles);
                 this.lastThrowTime = currentTime;
             }
         }
@@ -135,7 +134,6 @@ class World {
                 }
                 if (object.isCollidingEnemy(enemy) && !object.hasHitEnemy) {
                     this.handleCollision(enemy, object, enemyIndex);
-                    console.log('enemyindex:', enemyIndex);
                 }
             });
         });
@@ -150,7 +148,6 @@ class World {
      * @param {*} enemyIndex the enemy index in the array
      */
     handleCollision(enemy, object, enemyIndex) {
-        console.log('Flasche trifft Gegner / objekt', enemy, object);
         object.hasHitEnemy = true;
         if (this.isSoundEnabled) {
             this.brokeBottleSound.play();
@@ -191,10 +188,8 @@ class World {
         if (enemy instanceof EnemyChicken && !enemy.isDead() || enemy instanceof SmallEnemyChicken && !enemy.isDead()) {
             this.handleCharacterJumpCollision(enemy, enemyIndex);
         } else {
-            console.log('Character collision with:', enemy);
             this.character.hit();
             this.statusBar.setPercentage(this.character.energy);
-            console.log('after collision energy from character:', this.character.energy);
         }
     }
 
@@ -206,10 +201,8 @@ class World {
      * @param {*} enemyIndex - The index of the enemy in the enemies array.
      */
     handleCharacterBelowGroundCollision(enemy, enemyIndex) {
-        console.log('Character collision with:', enemy);
         this.character.hit();
         this.statusBar.setPercentage(this.character.energy);
-        console.log('after collision energy from character:', this.character.energy);
         if (this.isSoundEnabled) {
             this.characterLHurt.play();
             this.characterLongIdleSound.pause();
@@ -248,7 +241,6 @@ class World {
     */
     handleEndbossCollision(enemy) {
         enemy.hit();
-        console.log('bottle trifft Endboss Leben:', enemy.energy);
         if (enemy.isDead()) {
             this.endbossDead = true;
             enemy.playAnimation(enemy.IMAGES_DEAD);
@@ -298,7 +290,6 @@ class World {
     */
     handleNormalEnemyCollision(enemy, enemyIndex) {
         enemy.hit();
-        console.log('bottle trifft normalen Gegner Leben:', enemy.energy);
         if (enemy.isDead()) {
             enemy.playAnimation(enemy.IMAGES_DEAD);
             setTimeout(() => {
@@ -319,7 +310,6 @@ class World {
         if (this.isSoundEnabled) {
             this.chickenSound.play();
         }
-        console.log('springe auf gegner !! leben:', enemy.energy);
         if (enemy.isDead()) {
             enemy.playAnimation(enemy.IMAGES_DEAD);
             setTimeout(() => {
@@ -335,11 +325,9 @@ class World {
     * @param {Coin} coin - The coin object.
     */
     handleCoinCollision(coin) {
-        console.log('Character collided with coin:', coin);
         this.removeCoin(coin);
         this.statusBarCoin.updateCoinStatusBar();
         this.statusBarCoin.countSessionCoins++;
-        console.log('session coins:', this.statusBarCoin.countSessionCoins);
     }
 
 
@@ -349,11 +337,9 @@ class World {
     * @param {Bottle} bottle - The bottle object.
     */
     handleBottleCollision(bottle) {
-        console.log('Character collided with bottle:', bottle);
         this.removeBottle(bottle);
         this.statusBarBottle.updateBottleStatusBar();
         this.collectedBottles++;
-        console.log('current bottles:', this.collectedBottles);
     }
 
 
