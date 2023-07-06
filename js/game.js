@@ -1,7 +1,7 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
-let soundOn = true;
+let soundOn;
 
 
 /**
@@ -11,6 +11,7 @@ let soundOn = true;
 function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
+    world.isSoundEnabled = true;
     buttonTouchEvents();
     console.log('My world is:', world.character, world.enemies, world.backgroundObjects, world.clouds);
 }
@@ -26,7 +27,7 @@ function stopAllSoundsInWorld() {
         soundOn = false;
         document.getElementById('bigSoundImage').src = './img/mobil_icons/icons8-kein-ton-100.png';
         document.getElementById('bigSoundImageSmall').src = './img/mobil_icons/icons8-kein-ton-100.png';
-    } else {
+    } else if (!soundOn) {
         world.isSoundEnabled = true;
         soundOn = true;
         document.getElementById('bigSoundImage').src = './img/mobil_icons/icons8-ton-100.png';
@@ -129,22 +130,22 @@ function buttonTouchEvents() {
         keyboard.F = false;
     });
 
-    document.getElementById('startButton').addEventListener('touchstart', (e) => {
-        e.preventDefault();
-        initLevel1();
-        init();
-        buttonTouchEvents();
-    });
+    // document.getElementById('startButton').addEventListener('touchstart', (e) => {
+    //     e.preventDefault();
+    //     initLevel1();
+    //     init();
+    //     buttonTouchEvents();
+    // });
 
     document.getElementById('helpButtonSmall').addEventListener('touchstart', (e) => {
         e.preventDefault();
         showPopup();
     });
 
-    document.getElementById('bigSoundImageSmall').addEventListener('click', (e) => {
-        e.preventDefault();
-        stopAllSoundsInWorld();
-    });
+    // document.getElementById('bigSoundImageSmall').addEventListener('touchend', (e) => {
+    //     e.preventDefault();
+    //     stopAllSoundsInWorld();
+    // });
 }
 
 
