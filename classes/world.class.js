@@ -31,6 +31,11 @@ class World {
     chickenSound = new Audio('./audio/chicken.mp3');
     endbossDeadSound = new Audio('./audio/endboss_dead.mp3');
 
+    winSound = new Audio('./audio/win.mp3');
+    looseSound = new Audio('./audio/loose_2.mp3');
+
+    backgroundSound = new Audio('./audio/background_guitar.mp3');
+    backgroundSoundOn = true;
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -39,8 +44,17 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
+        this.playBackgroundSound();
+        this.backgroundSound.loop = true;
     }
 
+    playBackgroundSound() {
+        if (this.isSoundEnabled && this.backgroundSoundOn) {
+            this.backgroundSound.play();
+        } else {
+            this.backgroundSound.pause();
+        }
+    }
 
     setWorld() {
         this.character.world = this;
@@ -51,6 +65,7 @@ class World {
         setInterval(() => {
             this.checkThrowObjects();
             this.checkCollisions();
+            this.playBackgroundSound();
         }, 100);
     }
 
@@ -157,6 +172,8 @@ class World {
             enemy.playAnimation(enemy.IMAGES_DEAD);
             if (this.isSoundEnabled) {
                 this.endbossDeadSound.play();
+                this.backgroundSoundOn = false;
+                this.winSound.play();
             }
             setTimeout(() => {
                 document.getElementById('looseGame').classList.remove('d-none');

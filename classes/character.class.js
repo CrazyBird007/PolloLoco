@@ -78,7 +78,7 @@ class Character extends MovableObject {
     }
 
 
-    animate() { 
+    animate() {
         setInterval(() => {
             this.moveCharacter();
             this.moveCamera();
@@ -99,7 +99,7 @@ class Character extends MovableObject {
             }
         }, 102);
     }
-    
+
     moveCharacter() {
         this.world.characterWalkSound.pause();
         if (this.world.keyboard.RIGHT && this.posX < this.world.level.level_end_x) {
@@ -126,16 +126,18 @@ class Character extends MovableObject {
             }
         }
     }
-    
+
     moveCamera() {
         this.world.camera_x = -this.posX + 150;
     }
-    
+
     handleCharacterDead() {
         this.playAnimation(this.IMAGES_DEAD);
         if (this.world.isSoundEnabled) {
             this.world.characterDeadSound.play();
             this.world.characterLongIdleSound.pause();
+            this.world.backgroundSoundOn = false;
+            this.world.looseSound.play();
         }
         setTimeout(() => {
             document.getElementById('looseGame').classList.remove('d-none');
@@ -147,7 +149,7 @@ class Character extends MovableObject {
             `;
         }, 1220);
     }
-    
+
     handleIdleAnimation() {
         this.world.characterLongIdleSound.pause();
         const currentTime = new Date();
@@ -162,7 +164,7 @@ class Character extends MovableObject {
         if (this.world.isSoundEnabled && this.longIdleSound) {
             this.world.characterLongIdleSound.play();
         }
-    }    
+    }
 
 
     jump() {
