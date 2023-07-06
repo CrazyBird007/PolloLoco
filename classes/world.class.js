@@ -279,12 +279,13 @@ class World {
                 document.getElementById('looseGame').classList.remove('d-none');
                 for (let i = 1; i < 9999; i++) window.clearInterval(i);
                 document.getElementById('winGameInfos').classList.add('d-flex');
+                document.getElementById('winGameInfos').classList.remove('d-none');
                 document.getElementById('winGameInfos').innerHTML = /*html*/`
                     Gewonnen! Du hast ${this.statusBarCoin.countSessionCoins} Punkte erreicht, Glückwunsch!
                 `;
                 setTimeout(() => {
                     document.getElementById('startButton').classList.remove('d-none');
-                }, 5000);
+                }, 2000);
             }, 1500);
     }
 
